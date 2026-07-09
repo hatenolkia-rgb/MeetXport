@@ -61,12 +61,14 @@
         </div>
       </div>
 
-      <div class="route-panel reveal">
+      <div class="route-panel reveal" id="routePanel">
         <div class="globe">
           <span class="globe-shine"></span>
           <span class="globe-ring globe-ring-1"></span>
           <span class="globe-ring globe-ring-2"></span>
         </div>
+        <span class="earth3d-glow"></span>
+        <div class="earth3d" id="earth3d" aria-hidden="true"></div>
         <svg viewBox="0 0 420 420" fill="none">
           <circle cx="120" cy="220" r="7" fill="#E7A94C" class="pulse"/>
           <text x="90" y="248" fill="rgba(255,255,255,.75)" font-family="IBM Plex Mono, monospace" font-size="10">INDIA</text>
@@ -262,5 +264,6 @@
 </footer>
 
 <script src="js/script.js"></script>
+<script type="module" src="js/globe3d.js"></script>
 </body>
 </html>

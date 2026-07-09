@@ -115,6 +115,7 @@ nav.wrap{ display:flex; align-items:center; justify-content:space-between; paddi
   position:relative; background:var(--ink);
   border-radius:24px; aspect-ratio:1/1; overflow:hidden;
   box-shadow:0 30px 60px -20px rgba(24,11,51,.45);
+  user-select:none; -webkit-user-select:none;
 }
 .route-panel svg{ position:relative; z-index:2; width:100%; height:100%; }
 .route-label{
@@ -162,6 +163,25 @@ nav.wrap{ display:flex; align-items:center; justify-content:space-between; paddi
 }
 @media (prefers-reduced-motion: reduce){
   .globe, .globe-shine, .globe-ring{ animation:none; }
+}
+
+/* Real interactive 3D earth (Three.js), layered over the CSS globe fallback */
+.earth3d-glow{
+  position:absolute; width:56%; aspect-ratio:1/1; border-radius:50%;
+  left:28.6%; top:52.4%; transform:translate(-50%,-50%); z-index:0;
+  background:radial-gradient(circle, rgba(157,78,221,.5), rgba(157,78,221,0) 68%);
+  filter:blur(6px);
+  animation: earth-glow-pulse 4.5s ease-in-out infinite;
+}
+@keyframes earth-glow-pulse{ 0%,100%{ opacity:.55; } 50%{ opacity:1; } }
+.earth3d{
+  position:absolute; width:60%; aspect-ratio:1/1;
+  left:28.6%; top:52.4%; transform:translate(-50%,-50%); z-index:1;
+}
+.earth3d canvas{ display:block; width:100% !important; height:100% !important; }
+.route-panel.has-3d-earth .globe{ display:none; }
+@media (prefers-reduced-motion: reduce){
+  .earth3d-glow{ animation:none; }
 }
 
 /* Trust strip */
