@@ -32,6 +32,7 @@ function handleSubmit(e){
     company: document.getElementById('company').value,
     category: document.getElementById('category').value,
     country: document.getElementById('country').value,
+    interest: document.getElementById('interest') ? document.getElementById('interest').value : '',
     contact: document.getElementById('email').value,
     message: document.getElementById('message') ? document.getElementById('message').value : '',
     submittedAt: new Date().toISOString()
@@ -81,4 +82,21 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }, { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+});
+
+// Pre-fill contact form "Interested in" from ?plan= links on services.html
+document.addEventListener('DOMContentLoaded', () => {
+  const interestSelect = document.getElementById('interest');
+  if(!interestSelect) return;
+  const plan = new URLSearchParams(window.location.search).get('plan');
+  if(!plan) return;
+  const planToInterest = {
+    '3month': 'outreach',
+    '6month': 'outreach',
+    '12month': 'outreach',
+    'leads': 'leads',
+    'linkedin-addon': 'leads',
+    'whatsapp-addon': 'leads'
+  };
+  if(planToInterest[plan]) interestSelect.value = planToInterest[plan];
 });
