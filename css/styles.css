@@ -69,7 +69,7 @@ header{
 }
 nav.wrap{ display:flex; align-items:center; justify-content:space-between; padding:16px 32px; }
 .brand{ display:flex; align-items:center; gap:10px; }
-.brand img{ height:40px; width:auto; }
+.brand img{ height:48px; width:auto; }
 .nav-links{ display:flex; gap:30px; font-size:15px; font-weight:500; }
 .nav-links a.active{ color:var(--purple); }
 .nav-cta{ display:flex; align-items:center; gap:12px; }
@@ -116,7 +116,7 @@ nav.wrap{ display:flex; align-items:center; justify-content:space-between; paddi
   border-radius:24px; aspect-ratio:1/1; overflow:hidden;
   box-shadow:0 30px 60px -20px rgba(24,11,51,.45);
 }
-.route-panel svg{ width:100%; height:100%; }
+.route-panel svg{ position:relative; z-index:2; width:100%; height:100%; }
 .route-label{
   position:absolute; font-family:'IBM Plex Mono', monospace; font-size:10.5px;
   color:rgba(255,255,255,.75); letter-spacing:.05em; text-transform:uppercase;
@@ -127,6 +127,42 @@ nav.wrap{ display:flex; align-items:center; justify-content:space-between; paddi
 @keyframes dash{ to{ stroke-dashoffset:0; } }
 .pulse{ animation:pulse 2.4s ease-in-out infinite; transform-origin:center; }
 @keyframes pulse{ 0%,100%{ opacity:.55; transform:scale(1);} 50%{ opacity:1; transform:scale(1.35);} }
+
+/* 3D-look globe behind the India origin point */
+.globe{
+  position:absolute; width:44%; aspect-ratio:1/1; border-radius:50%;
+  left:28.6%; top:52.4%; transform:translate(-50%,-50%);
+  background:
+    radial-gradient(circle at 34% 30%, rgba(255,255,255,.55), rgba(255,255,255,0) 30%),
+    radial-gradient(circle at 40% 34%, #C79EF5 0%, #9D4EDD 30%, #7B2FE0 55%, #2A1657 82%, #180B33 100%);
+  box-shadow:
+    inset -22px -22px 55px rgba(0,0,0,.6),
+    inset 14px 14px 40px rgba(255,255,255,.12),
+    0 0 90px rgba(157,78,221,.4);
+  animation: globe-glow 4.5s ease-in-out infinite;
+  overflow:hidden;
+}
+.globe-shine{
+  position:absolute; inset:0; border-radius:50%;
+  background:conic-gradient(from 200deg at 40% 35%, rgba(255,255,255,.18), rgba(255,255,255,0) 35%, rgba(255,255,255,0) 100%);
+  animation: globe-spin 12s linear infinite;
+}
+.globe-ring{
+  position:absolute; inset:-16%; border-radius:50%;
+  border:1px solid rgba(157,78,221,.4);
+}
+.globe-ring-1{ animation: ring-spin-1 16s linear infinite; }
+.globe-ring-2{ inset:-26%; border-color:rgba(231,169,76,.3); animation: ring-spin-2 22s linear infinite; }
+@keyframes globe-spin{ to{ transform:rotate(360deg); } }
+@keyframes ring-spin-1{ from{ transform:rotate(12deg) scaleY(.34); } to{ transform:rotate(372deg) scaleY(.34); } }
+@keyframes ring-spin-2{ from{ transform:rotate(-18deg) scaleY(.4); } to{ transform:rotate(342deg) scaleY(.4); } }
+@keyframes globe-glow{
+  0%,100%{ box-shadow: inset -22px -22px 55px rgba(0,0,0,.6), inset 14px 14px 40px rgba(255,255,255,.12), 0 0 70px rgba(157,78,221,.35); }
+  50%{ box-shadow: inset -22px -22px 55px rgba(0,0,0,.6), inset 14px 14px 40px rgba(255,255,255,.16), 0 0 110px rgba(157,78,221,.55); }
+}
+@media (prefers-reduced-motion: reduce){
+  .globe, .globe-shine, .globe-ring{ animation:none; }
+}
 
 /* Trust strip */
 .trust-strip{ padding:34px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
@@ -140,25 +176,37 @@ nav.wrap{ display:flex; align-items:center; justify-content:space-between; paddi
 .section-head p{ color:var(--muted); font-size:16.5px; margin-top:14px; }
 
 /* Service cards (home overview) */
-.services-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:22px; }
-@media (max-width:1000px){ .services-grid{ grid-template-columns:repeat(2,1fr);} }
-@media (max-width:560px){ .services-grid{ grid-template-columns:1fr;} }
+.services-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:22px; }
+@media (max-width:700px){ .services-grid{ grid-template-columns:1fr;} }
 .service-card{
   background:var(--white); border:1px solid var(--line); border-radius:var(--radius);
-  padding:30px 26px; transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  padding:36px 32px; transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
 }
 .service-card:hover{ transform:translateY(-4px); box-shadow:0 20px 40px -24px rgba(24,11,51,.3); border-color:transparent; }
 .service-icon{
-  width:46px; height:46px; border-radius:12px; background:var(--ink);
-  display:flex; align-items:center; justify-content:center; margin-bottom:20px;
+  width:50px; height:50px; border-radius:13px; background:var(--ink);
+  display:flex; align-items:center; justify-content:center; margin-bottom:22px;
 }
-.service-icon svg{ width:22px; height:22px; }
-.service-card h3{ font-size:18px; margin-bottom:10px; }
-.service-card p{ font-size:14.5px; color:var(--muted); }
+.service-icon svg{ width:24px; height:24px; }
+.service-card h3{ font-size:20px; margin-bottom:12px; }
+.service-card p{ font-size:15px; color:var(--muted); }
 .service-tag{
-  display:inline-block; margin-top:16px; font-family:'IBM Plex Mono', monospace;
-  font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--purple);
+  display:inline-flex; align-items:center; gap:6px; margin-top:18px; font-family:'IBM Plex Mono', monospace;
+  font-size:11.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--purple); font-weight:500;
+  transition:gap .25s ease;
 }
+.service-card:hover .service-tag{ gap:10px; }
+
+/* Add-on strip (home overview) */
+.addon-strip{
+  margin-top:28px; padding:22px 26px; border-radius:16px; background:var(--purple-tint);
+  display:flex; flex-wrap:wrap; align-items:center; gap:16px; justify-content:space-between;
+}
+.addon-strip-label{
+  font-family:'IBM Plex Mono', monospace; font-size:11.5px; letter-spacing:.05em;
+  text-transform:uppercase; color:var(--ink-2); font-weight:500;
+}
+.services-cta{ display:flex; justify-content:center; margin-top:40px; }
 
 /* How it works (dark panel) */
 .how{ background:var(--ink); color:var(--white); border-radius:32px; margin:0 32px; padding:70px 48px; }
@@ -181,14 +229,15 @@ nav.wrap{ display:flex; align-items:center; justify-content:space-between; paddi
 .step-card h4{ color:var(--white); font-size:16.5px; margin-bottom:8px; }
 .step-card p{ color:rgba(255,255,255,.6); font-size:14px; }
 
-/* Industries */
-.chip-grid{ display:flex; flex-wrap:wrap; gap:14px; }
+/* Industries / chips (also used for add-on tags) */
+.chip-grid{ display:flex; flex-wrap:wrap; gap:12px; }
 .chip{
-  padding:12px 22px; border-radius:100px; border:1px solid var(--line);
-  font-size:14.5px; font-weight:600; background:var(--white); color:var(--ink-2);
-  display:flex; align-items:center; gap:9px;
+  padding:12px 20px; border-radius:100px; border:1px solid var(--line);
+  font-size:14px; font-weight:600; background:var(--white); color:var(--ink-2);
+  display:flex; align-items:center; gap:9px; transition:border-color .2s ease, transform .2s ease;
 }
-.chip .dot{ width:7px; height:7px; border-radius:50%; background:var(--purple-2); }
+a.chip:hover{ border-color:var(--purple); transform:translateY(-2px); color:var(--purple); }
+.chip .dot{ width:7px; height:7px; border-radius:50%; background:var(--purple-2); flex-shrink:0; }
 
 /* Pillars */
 .pillars{ display:grid; grid-template-columns:repeat(3,1fr); gap:30px; }
@@ -238,7 +287,7 @@ nav.wrap{ display:flex; align-items:center; justify-content:space-between; paddi
 footer{ padding:64px 0 30px; }
 .footer-grid{ display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:40px; margin-bottom:50px; }
 @media (max-width:800px){ .footer-grid{ grid-template-columns:1fr 1fr; } }
-.footer-brand img{ height:38px; margin-bottom:14px; }
+.footer-brand img{ height:52px; margin-bottom:14px; }
 .footer-brand p{ color:var(--muted); font-size:14px; max-width:260px; }
 .footer-col h5{ font-family:'IBM Plex Mono', monospace; font-size:11.5px; text-transform:uppercase; letter-spacing:.08em; color:var(--ink-2); margin-bottom:16px; }
 .footer-col li{ margin-bottom:10px; font-size:14.5px; color:var(--muted); }
