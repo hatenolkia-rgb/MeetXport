@@ -37,7 +37,7 @@ No build step, no dependencies — pure HTML/CSS/JS. Open `index.html` directly 
 
 1. Push this repo to GitHub.
 2. In Vercel: **Add New → Project** → import the repo → Deploy.
-3. No framework preset or build command needed — this is a static site.
+3. No framework preset or build command needed — this is a static site. Root Directory should be left as `.` (repo root), since `index.html` lives there.
 4. Point your domain (e.g. `meetxport.com`) at the Vercel deployment via your DNS provider (Hostinger, GoDaddy, etc.).
 
 ## Known placeholders to update before going live
