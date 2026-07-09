@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Meetxport</title>
+<meta name="description" content="Get in touch with Meetxport about Exclusive Outreach or Verified Buyer Leads.">
+<link rel="icon" type="image/jpeg" href="assets/logo.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <a href="index.html" class="brand"><img src="assets/logo.jpg" alt="Meetxport logo"></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="login.html" class="btn btn-outline">Log in</a>
+      <a href="contact.html" class="btn btn-primary">Get started <span class="btn-arrow">→</span></a>
+    </div>
+    <button class="nav-toggle" onclick="toggleMenu()" aria-label="Menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="login.html">Log in</a>
+  </div>
+</header>
+
+<div class="page-header">
+  <div class="wrap">
+    <div class="crumb"><a href="index.html">Home</a> / Contact</div>
+    <span class="eyebrow">Get in touch</span>
+    <h1>Tell us what you're trying to sell — and where.</h1>
+    <p>One form, and we'll come back with whether Exclusive Outreach, Verified Buyer Leads, or both makes sense for you.</p>
+  </div>
+</div>
+
+<main>
+  <section>
+    <div class="wrap">
+      <div class="cta-section reveal" style="background:var(--white); border:1px solid var(--line); box-shadow:0 30px 60px -40px rgba(24,11,51,.2);">
+        <div class="cta-grid">
+          <div class="cta-copy" style="color:var(--ink);">
+            <span class="eyebrow">Reach us directly</span>
+            <h2 style="color:var(--ink);">We reply within one business day.</h2>
+            <p style="color:var(--muted);">Prefer WhatsApp or email? Use the details below — or fill in the form and we'll come to you.</p>
+            <div class="cta-contact-line" style="color:var(--ink-2);">
+              <span>✉️ hello@meetxport.com</span>
+              <span>💬 +91 XXXXX XXXXX · WhatsApp</span>
+              <span>📍 Dubai, UAE · India</span>
+            </div>
+            <div style="margin-top:34px;">
+              <span class="eyebrow" style="margin-bottom:14px;">Not sure which service?</span>
+              <p style="color:var(--muted); font-size:14px; margin-top:10px;">Mention your product and target country in the message field — we'll recommend Exclusive Outreach, Verified Buyer Leads, or a combination.</p>
+            </div>
+          </div>
+          <div class="cta-form">
+            <div class="role-toggle">
+              <button type="button" class="role-btn active" id="role-exporter" onclick="setRole('exporter')">I'm an Exporter</button>
+              <button type="button" class="role-btn" id="role-buyer" onclick="setRole('buyer')">I'm a Buyer</button>
+            </div>
+            <form id="leadForm" onsubmit="handleSubmit(event)">
+              <div class="field-row">
+                <div class="field"><label for="name">Full name</label><input id="name" required></div>
+                <div class="field"><label for="company">Company</label><input id="company" required></div>
+              </div>
+              <div class="field-row">
+                <div class="field"><label for="category">Product / HS Code</label><input id="category" placeholder="e.g. Textiles, HS 5208" required></div>
+                <div class="field"><label for="country">Target country</label><input id="country" required></div>
+              </div>
+              <div class="field">
+                <label for="interest">Interested in</label>
+                <select id="interest">
+                  <option value="outreach">Exclusive Outreach</option>
+                  <option value="leads">Verified Buyer Leads</option>
+                  <option value="both">Both / Not sure yet</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="email">Email or WhatsApp number</label>
+                <input id="email" required>
+              </div>
+              <div class="field">
+                <label for="message">Anything else we should know?</label>
+                <textarea id="message" rows="3" placeholder="Volume, timeline, current markets..."></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary btn-block">Submit inquiry <span class="btn-arrow">→</span></button>
+              <p class="form-msg" id="formMsg">Thanks — your inquiry has been received. We'll reach out shortly.</p>
+              <p class="field-hint">This form saves to your browser for now — connect a backend (e.g. Supabase) to receive submissions directly.</p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="assets/logo.jpg" alt="Meetxport logo">
+        <p>Connecting India to the world — exclusive buyer outreach and verified buyer leads for exporters.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Platform</h5>
+        <ul>
+          <li><a href="services.html#outreach">Exclusive Outreach</a></li>
+          <li><a href="services.html#leads">Verified Buyer Leads</a></li>
+          <li><a href="login.html">Log in</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <ul>
+          <li><a href="about.html">About Meetxport</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Reach us</h5>
+        <ul>
+          <li>hello@meetxport.com</li>
+          <li>Dubai, UAE</li>
+          <li>India</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Meetxport. All rights reserved.</span>
+      <span>Connecting India to the world.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/script.js"></script>
+</body>
+</html>
