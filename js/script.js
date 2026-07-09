@@ -100,3 +100,75 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   if(planToInterest[plan]) interestSelect.value = planToInterest[plan];
 });
+
+// Hero network panel: drifting particles, count-up metrics, floating activity cards
+document.addEventListener('DOMContentLoaded', () => {
+  const particlesEl = document.getElementById('particles');
+  if(particlesEl){
+    for(let i = 0; i < 26; i++){
+      const p = document.createElement('span');
+      p.className = 'particle';
+      const size = 1 + Math.random() * 2;
+      p.style.width = size + 'px';
+      p.style.height = size + 'px';
+      p.style.left = (Math.random() * 100) + '%';
+      p.style.top = (Math.random() * 100) + '%';
+      p.style.animationDuration = (6 + Math.random() * 8) + 's';
+      p.style.animationDelay = (Math.random() * 8) + 's';
+      particlesEl.appendChild(p);
+    }
+  }
+
+  const metricsEl = document.getElementById('liveMetrics');
+  if(metricsEl){
+    const vals = metricsEl.querySelectorAll('.metric-val');
+    const metricsObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          vals.forEach(animateCount);
+          metricsObserver.disconnect();
+        }
+      });
+    }, { threshold: 0.4 });
+    metricsObserver.observe(metricsEl);
+  }
+
+  const cardsEl = document.getElementById('liveCards');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(cardsEl && !reduceMotion){
+    const regions = [
+      { name: 'USA', x: 16.7, y: 21.4 },
+      { name: 'UAE', x: 45.2, y: 19.0 },
+      { name: 'Europe', x: 71.4, y: 21.4 },
+      { name: 'Southeast Asia', x: 81.0, y: 46.4 },
+      { name: 'Africa', x: 71.4, y: 69.0 }
+    ];
+    const messages = ['Buyer matched', 'Outreach sent', 'Reply received', 'Meeting booked'];
+    const spawnCard = () => {
+      const region = regions[Math.floor(Math.random() * regions.length)];
+      const message = messages[Math.floor(Math.random() * messages.length)];
+      const card = document.createElement('div');
+      card.className = 'live-card' + (region.x > 65 ? ' anchor-right' : region.x < 25 ? ' anchor-left' : '');
+      card.style.left = region.x + '%';
+      card.style.top = Math.max(region.y, 17) + '%';
+      card.innerHTML = '<span class="check">✓</span>' + message + ' · ' + region.name;
+      cardsEl.appendChild(card);
+      setTimeout(() => card.remove(), 2800);
+    };
+    spawnCard();
+    setInterval(spawnCard, 3400);
+  }
+});
+
+function animateCount(el){
+  const target = parseInt(el.dataset.target, 10) || 0;
+  const duration = 1400;
+  const start = performance.now();
+  function tick(now){
+    const progress = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    el.textContent = Math.round(target * eased);
+    if(progress < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}

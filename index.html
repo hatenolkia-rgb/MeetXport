@@ -62,36 +62,53 @@
       </div>
 
       <div class="route-panel reveal" id="routePanel">
-        <div class="globe">
-          <span class="globe-shine"></span>
-          <span class="globe-ring globe-ring-1"></span>
-          <span class="globe-ring globe-ring-2"></span>
+        <div class="particles" id="particles"></div>
+
+        <div class="network-stage">
+          <svg viewBox="0 0 420 420" fill="none">
+            <circle cx="120" cy="220" r="7" class="origin-ring origin-ring-1"/>
+            <circle cx="120" cy="220" r="7" class="origin-ring origin-ring-2"/>
+            <circle cx="120" cy="220" r="7" fill="#E7A94C" class="pulse"/>
+            <text x="90" y="248" fill="rgba(255,255,255,.75)" font-family="IBM Plex Mono, monospace" font-size="10">INDIA</text>
+
+            <circle cx="300" cy="90" r="4.5" fill="#9D4EDD"/>
+            <circle cx="340" cy="195" r="4.5" fill="#9D4EDD"/>
+            <circle cx="300" cy="290" r="4.5" fill="#9D4EDD"/>
+            <circle cx="190" cy="80" r="4.5" fill="#9D4EDD"/>
+            <circle cx="70" cy="90" r="4.5" fill="#9D4EDD"/>
+
+            <path class="dash" d="M120 220 C 180 150, 230 110, 300 90" stroke="#9D4EDD" stroke-width="1.4" opacity=".6"/>
+            <path class="dash" d="M120 220 C 220 210, 280 200, 340 195" stroke="#9D4EDD" stroke-width="1.4" opacity=".6"/>
+            <path class="dash" d="M120 220 C 190 250, 240 275, 300 290" stroke="#9D4EDD" stroke-width="1.4" opacity=".6"/>
+            <path class="dash" d="M120 220 C 150 170, 165 120, 190 80" stroke="#9D4EDD" stroke-width="1.4" opacity=".6"/>
+            <path class="dash" d="M120 220 C 100 170, 85 130, 70 90" stroke="#9D4EDD" stroke-width="1.4" opacity=".6"/>
+
+            <text x="305" y="86" fill="rgba(255,255,255,.55)" font-family="IBM Plex Mono, monospace" font-size="8">EUROPE</text>
+            <text x="345" y="193" fill="rgba(255,255,255,.55)" font-family="IBM Plex Mono, monospace" font-size="8">SOUTHEAST ASIA</text>
+            <text x="305" y="306" fill="rgba(255,255,255,.55)" font-family="IBM Plex Mono, monospace" font-size="8">AFRICA</text>
+            <text x="160" y="70" fill="rgba(255,255,255,.55)" font-family="IBM Plex Mono, monospace" font-size="8">UAE</text>
+            <text x="30" y="80" fill="rgba(255,255,255,.55)" font-family="IBM Plex Mono, monospace" font-size="8">USA</text>
+          </svg>
+
+          <div class="live-cards" id="liveCards"></div>
+
+          <div class="route-label" style="top:18px; left:18px;">Live outreach network</div>
         </div>
-        <span class="earth3d-glow"></span>
-        <div class="earth3d" id="earth3d" aria-hidden="true"></div>
-        <svg viewBox="0 0 420 420" fill="none">
-          <circle cx="120" cy="220" r="7" fill="#E7A94C" class="pulse"/>
-          <text x="90" y="248" fill="rgba(255,255,255,.75)" font-family="IBM Plex Mono, monospace" font-size="10">INDIA</text>
 
-          <circle cx="300" cy="90" r="4.5" fill="#9D4EDD"/>
-          <circle cx="340" cy="200" r="4.5" fill="#9D4EDD"/>
-          <circle cx="300" cy="320" r="4.5" fill="#9D4EDD"/>
-          <circle cx="190" cy="80" r="4.5" fill="#9D4EDD"/>
-          <circle cx="70" cy="90" r="4.5" fill="#9D4EDD"/>
-
-          <path class="dash" d="M120 220 C 180 150, 230 110, 300 90" stroke="#9D4EDD" stroke-width="1.4" opacity=".6"/>
-          <path class="dash" d="M120 220 C 220 210, 280 205, 340 200" stroke="#9D4EDD" stroke-width="1.4" opacity=".6"/>
-          <path class="dash" d="M120 220 C 190 260, 240 300, 300 320" stroke="#9D4EDD" stroke-width="1.4" opacity=".6"/>
-          <path class="dash" d="M120 220 C 150 170, 165 120, 190 80" stroke="#9D4EDD" stroke-width="1.4" opacity=".6"/>
-          <path class="dash" d="M120 220 C 100 170, 85 130, 70 90" stroke="#9D4EDD" stroke-width="1.4" opacity=".6"/>
-
-          <text x="305" y="86" fill="rgba(255,255,255,.55)" font-family="IBM Plex Mono, monospace" font-size="8">EUROPE</text>
-          <text x="345" y="198" fill="rgba(255,255,255,.55)" font-family="IBM Plex Mono, monospace" font-size="8">SE ASIA</text>
-          <text x="305" y="335" fill="rgba(255,255,255,.55)" font-family="IBM Plex Mono, monospace" font-size="8">AFRICA</text>
-          <text x="150" y="70" fill="rgba(255,255,255,.55)" font-family="IBM Plex Mono, monospace" font-size="8">MIDDLE EAST</text>
-          <text x="18" y="80" fill="rgba(255,255,255,.55)" font-family="IBM Plex Mono, monospace" font-size="8">AMERICAS</text>
-        </svg>
-        <div class="route-label" style="bottom:18px; left:18px;">Live outreach network</div>
+        <div class="live-metrics" id="liveMetrics">
+          <div class="metric">
+            <span class="metric-val" data-target="127">0</span>
+            <span class="metric-label">Emails sent</span>
+          </div>
+          <div class="metric">
+            <span class="metric-val" data-target="42">0</span>
+            <span class="metric-label">Replies</span>
+          </div>
+          <div class="metric">
+            <span class="metric-val" data-target="15">0</span>
+            <span class="metric-label">Meetings booked</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -264,6 +281,5 @@
 </footer>
 
 <script src="js/script.js"></script>
-<script type="module" src="js/globe3d.js"></script>
 </body>
 </html>

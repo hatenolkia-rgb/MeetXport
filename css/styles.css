@@ -112,76 +112,82 @@ nav.wrap{ display:flex; align-items:center; justify-content:space-between; paddi
 .hero-trust span::before{ content:''; width:6px; height:6px; border-radius:50%; background:var(--gold); }
 
 .route-panel{
-  position:relative; background:var(--ink);
-  border-radius:24px; aspect-ratio:1/1; overflow:hidden;
+  position:relative; background:
+    radial-gradient(circle at 30% 25%, #2A1657 0%, rgba(42,22,87,0) 55%),
+    linear-gradient(160deg, #1F0F42 0%, var(--ink) 60%, #0F0824 100%);
+  border-radius:24px; aspect-ratio:1/1.14; overflow:hidden;
   box-shadow:0 30px 60px -20px rgba(24,11,51,.45);
   user-select:none; -webkit-user-select:none;
+  display:flex; flex-direction:column;
 }
-.route-panel svg{ position:relative; z-index:2; width:100%; height:100%; }
+.network-stage{ position:relative; flex:1; min-height:0; }
+.network-stage svg{ position:relative; z-index:2; width:100%; height:100%; }
 .route-label{
   position:absolute; font-family:'IBM Plex Mono', monospace; font-size:10.5px;
   color:rgba(255,255,255,.75); letter-spacing:.05em; text-transform:uppercase;
   background:rgba(255,255,255,.08); padding:5px 10px; border-radius:20px;
-  border:1px solid rgba(255,255,255,.15);
+  border:1px solid rgba(255,255,255,.15); z-index:3;
 }
 .dash{ stroke-dasharray:6 6; stroke-dashoffset:400; animation:dash 3.5s linear infinite; }
 @keyframes dash{ to{ stroke-dashoffset:0; } }
-.pulse{ animation:pulse 2.4s ease-in-out infinite; transform-origin:center; }
+.pulse{ animation:pulse 2.4s ease-in-out infinite; transform-box:fill-box; transform-origin:center; }
 @keyframes pulse{ 0%,100%{ opacity:.55; transform:scale(1);} 50%{ opacity:1; transform:scale(1.35);} }
 
-/* 3D-look globe behind the India origin point */
-.globe{
-  position:absolute; width:44%; aspect-ratio:1/1; border-radius:50%;
-  left:28.6%; top:52.4%; transform:translate(-50%,-50%);
-  background:
-    radial-gradient(circle at 34% 30%, rgba(255,255,255,.55), rgba(255,255,255,0) 30%),
-    radial-gradient(circle at 40% 34%, #C79EF5 0%, #9D4EDD 30%, #7B2FE0 55%, #2A1657 82%, #180B33 100%);
-  box-shadow:
-    inset -22px -22px 55px rgba(0,0,0,.6),
-    inset 14px 14px 40px rgba(255,255,255,.12),
-    0 0 90px rgba(157,78,221,.4);
-  animation: globe-glow 4.5s ease-in-out infinite;
-  overflow:hidden;
-}
-.globe-shine{
-  position:absolute; inset:0; border-radius:50%;
-  background:conic-gradient(from 200deg at 40% 35%, rgba(255,255,255,.18), rgba(255,255,255,0) 35%, rgba(255,255,255,0) 100%);
-  animation: globe-spin 12s linear infinite;
-}
-.globe-ring{
-  position:absolute; inset:-16%; border-radius:50%;
-  border:1px solid rgba(157,78,221,.4);
-}
-.globe-ring-1{ animation: ring-spin-1 16s linear infinite; }
-.globe-ring-2{ inset:-26%; border-color:rgba(231,169,76,.3); animation: ring-spin-2 22s linear infinite; }
-@keyframes globe-spin{ to{ transform:rotate(360deg); } }
-@keyframes ring-spin-1{ from{ transform:rotate(12deg) scaleY(.34); } to{ transform:rotate(372deg) scaleY(.34); } }
-@keyframes ring-spin-2{ from{ transform:rotate(-18deg) scaleY(.4); } to{ transform:rotate(342deg) scaleY(.4); } }
-@keyframes globe-glow{
-  0%,100%{ box-shadow: inset -22px -22px 55px rgba(0,0,0,.6), inset 14px 14px 40px rgba(255,255,255,.12), 0 0 70px rgba(157,78,221,.35); }
-  50%{ box-shadow: inset -22px -22px 55px rgba(0,0,0,.6), inset 14px 14px 40px rgba(255,255,255,.16), 0 0 110px rgba(157,78,221,.55); }
-}
-@media (prefers-reduced-motion: reduce){
-  .globe, .globe-shine, .globe-ring{ animation:none; }
+/* Glowing India origin node */
+.origin-ring{ fill:none; stroke:#E7A94C; stroke-width:1.2; transform-origin:120px 220px; opacity:0; }
+.origin-ring-1{ animation:origin-pulse 3s ease-out infinite; }
+.origin-ring-2{ animation:origin-pulse 3s ease-out infinite 1.5s; }
+@keyframes origin-pulse{
+  0%{ r:7; opacity:.8; }
+  100%{ r:32; opacity:0; }
 }
 
-/* Real interactive 3D earth (Three.js), layered over the CSS globe fallback */
-.earth3d-glow{
-  position:absolute; width:56%; aspect-ratio:1/1; border-radius:50%;
-  left:28.6%; top:52.4%; transform:translate(-50%,-50%); z-index:0;
-  background:radial-gradient(circle, rgba(157,78,221,.5), rgba(157,78,221,0) 68%);
-  filter:blur(6px);
-  animation: earth-glow-pulse 4.5s ease-in-out infinite;
+/* Subtle drifting particle field */
+.particles{ position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:1; }
+.particle{
+  position:absolute; border-radius:50%; background:rgba(255,255,255,.55);
+  animation-name:particle-drift; animation-timing-function:ease-in-out; animation-iteration-count:infinite;
 }
-@keyframes earth-glow-pulse{ 0%,100%{ opacity:.55; } 50%{ opacity:1; } }
-.earth3d{
-  position:absolute; width:60%; aspect-ratio:1/1;
-  left:28.6%; top:52.4%; transform:translate(-50%,-50%); z-index:1;
+@keyframes particle-drift{
+  0%{ transform:translateY(0); opacity:0; }
+  15%{ opacity:.7; }
+  85%{ opacity:.5; }
+  100%{ transform:translateY(-34px); opacity:0; }
 }
-.earth3d canvas{ display:block; width:100% !important; height:100% !important; }
-.route-panel.has-3d-earth .globe{ display:none; }
+
+/* Floating "live activity" cards */
+.live-cards{ position:absolute; inset:0; z-index:4; pointer-events:none; }
+.live-card{
+  position:absolute; --anchor-x:-50%;
+  transform:translate(var(--anchor-x),-100%) translateY(10px);
+  background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.2);
+  backdrop-filter:blur(6px); border-radius:8px; padding:6px 11px;
+  font-family:'IBM Plex Mono', monospace; font-size:10px; color:#fff; white-space:nowrap;
+  display:flex; align-items:center; gap:6px;
+  opacity:0; animation:card-pop 2.8s ease forwards;
+}
+.live-card.anchor-left{ --anchor-x:-14%; }
+.live-card.anchor-right{ --anchor-x:-86%; }
+.live-card .check{ color:#E7A94C; }
+@keyframes card-pop{
+  0%{ opacity:0; transform:translate(var(--anchor-x),-100%) translateY(16px) scale(.92); }
+  14%{ opacity:1; transform:translate(var(--anchor-x),-100%) translateY(0) scale(1); }
+  78%{ opacity:1; }
+  100%{ opacity:0; transform:translate(var(--anchor-x),-100%) translateY(-6px) scale(.96); }
+}
+
+/* Live metrics bar */
+.live-metrics{
+  position:relative; z-index:3; display:flex; flex-shrink:0;
+  border-top:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.04);
+}
+.metric{ flex:1; text-align:center; padding:16px 6px; border-right:1px solid rgba(255,255,255,.1); }
+.metric:last-child{ border-right:none; }
+.metric-val{ display:block; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:21px; color:#fff; }
+.metric-label{ display:block; margin-top:4px; font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:.05em; text-transform:uppercase; color:rgba(255,255,255,.55); }
+
 @media (prefers-reduced-motion: reduce){
-  .earth3d-glow{ animation:none; }
+  .origin-ring, .particle, .live-card{ animation:none; opacity:0; }
 }
 
 /* Trust strip */

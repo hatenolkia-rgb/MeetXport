@@ -26,14 +26,12 @@ meetxport/
 ├── css/
 │   └── styles.css      # shared stylesheet for all pages
 ├── js/
-│   ├── script.js        # nav toggle, tabs, form handling, scroll reveal
-│   └── globe3d.js        # interactive 3D earth in the home hero (Three.js, via CDN import)
+│   └── script.js        # nav toggle, tabs, form handling, scroll reveal, hero network panel
 └── assets/
-    ├── logo.png          # Meetxport logo
-    └── earth/             # NASA Blue Marble textures (color/normal/specular) for the 3D globe
+    └── logo.png          # Meetxport logo
 ```
 
-No build step — pure HTML/CSS/JS, open `index.html` directly in a browser or serve the folder with any static host. The one exception is the home page's hero globe, which imports [Three.js](https://threejs.org) from a CDN (`unpkg.com`) as an ES module — if that CDN is unreachable or the browser lacks WebGL, it falls back to a CSS-only gradient sphere automatically, so the page still works either way.
+No build step, no dependencies — pure HTML/CSS/JS. Open `index.html` directly in a browser, or serve the folder with any static host. The home page hero (India origin node, particle field, animated outreach routes, live activity cards, count-up metrics) is all CSS/SVG/vanilla JS — no external libraries.
 
 ## Deploying to Vercel
 
