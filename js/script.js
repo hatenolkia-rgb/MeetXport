@@ -101,27 +101,11 @@ document.addEventListener('DOMContentLoaded', () => {
   if(planToInterest[plan]) interestSelect.value = planToInterest[plan];
 });
 
-// Hero network panel: drifting particles, count-up metrics, floating activity cards
+// Hero outreach dashboard: count-up stats, floating "buyer activity" cards
 document.addEventListener('DOMContentLoaded', () => {
-  const particlesEl = document.getElementById('particles');
-  if(particlesEl){
-    for(let i = 0; i < 26; i++){
-      const p = document.createElement('span');
-      p.className = 'particle';
-      const size = 1 + Math.random() * 2;
-      p.style.width = size + 'px';
-      p.style.height = size + 'px';
-      p.style.left = (Math.random() * 100) + '%';
-      p.style.top = (Math.random() * 100) + '%';
-      p.style.animationDuration = (6 + Math.random() * 8) + 's';
-      p.style.animationDelay = (Math.random() * 8) + 's';
-      particlesEl.appendChild(p);
-    }
-  }
-
-  const metricsEl = document.getElementById('liveMetrics');
-  if(metricsEl){
-    const vals = metricsEl.querySelectorAll('.metric-val');
+  const dashboardEl = document.getElementById('routePanel');
+  if(dashboardEl){
+    const vals = dashboardEl.querySelectorAll('.today-val');
     const metricsObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if(entry.isIntersecting){
@@ -129,34 +113,35 @@ document.addEventListener('DOMContentLoaded', () => {
           metricsObserver.disconnect();
         }
       });
-    }, { threshold: 0.4 });
-    metricsObserver.observe(metricsEl);
+    }, { threshold: 0.3 });
+    metricsObserver.observe(dashboardEl);
   }
 
   const cardsEl = document.getElementById('liveCards');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if(cardsEl && !reduceMotion){
-    const regions = [
-      { name: 'USA', x: 16.7, y: 21.4 },
-      { name: 'UAE', x: 45.2, y: 19.0 },
-      { name: 'Europe', x: 71.4, y: 21.4 },
-      { name: 'Southeast Asia', x: 81.0, y: 46.4 },
-      { name: 'Africa', x: 71.4, y: 69.0 }
+    const events = [
+      { x: 71.4, y: 21.4, title: 'Germany', status: 'Importer replied', detail: 'Response rate 32%' },
+      { x: 45.2, y: 19.0, title: 'UAE', status: 'Meeting confirmed', detail: '23 May · 11:00 AM' },
+      { x: 16.7, y: 21.4, title: 'USA', status: 'Procurement head contacted', detail: 'Response rate 28%' },
+      { x: 71.4, y: 69.0, title: 'South Africa', status: 'New importer found', detail: 'Added to pipeline' },
+      { x: 81.0, y: 46.4, title: 'Singapore', status: 'Meeting confirmed', detail: '26 May · 02:30 PM' }
     ];
-    const messages = ['Buyer matched', 'Outreach sent', 'Reply received', 'Meeting booked'];
     const spawnCard = () => {
-      const region = regions[Math.floor(Math.random() * regions.length)];
-      const message = messages[Math.floor(Math.random() * messages.length)];
+      const region = events[Math.floor(Math.random() * events.length)];
       const card = document.createElement('div');
       card.className = 'live-card' + (region.x > 65 ? ' anchor-right' : region.x < 25 ? ' anchor-left' : '');
       card.style.left = region.x + '%';
       card.style.top = Math.max(region.y, 17) + '%';
-      card.innerHTML = '<span class="check">✓</span>' + message + ' · ' + region.name;
+      card.innerHTML =
+        '<span class="live-card-title">' + region.title + '</span>' +
+        '<span class="live-card-status">' + region.status + '</span>' +
+        '<span class="live-card-detail">' + region.detail + '</span>';
       cardsEl.appendChild(card);
-      setTimeout(() => card.remove(), 2800);
+      setTimeout(() => card.remove(), 3200);
     };
     spawnCard();
-    setInterval(spawnCard, 3400);
+    setInterval(spawnCard, 3800);
   }
 });
 

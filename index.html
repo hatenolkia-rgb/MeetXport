@@ -61,52 +61,76 @@
         </div>
       </div>
 
-      <div class="route-panel reveal" id="routePanel">
-        <div class="particles" id="particles"></div>
+      <div class="outreach-dashboard reveal" id="routePanel">
+        <div class="dashboard-main">
+          <div class="route-label"><span class="live-dot"></span>Live outreach network</div>
 
-        <div class="network-stage">
-          <svg viewBox="0 0 420 420" fill="none">
-            <circle cx="120" cy="220" r="7" class="origin-ring origin-ring-1"/>
-            <circle cx="120" cy="220" r="7" class="origin-ring origin-ring-2"/>
-            <circle cx="120" cy="220" r="7" fill="#E7A94C" class="pulse"/>
-            <text x="90" y="248" fill="rgba(255,255,255,.75)" font-family="IBM Plex Mono, monospace" font-size="10">INDIA</text>
+          <div class="network-stage">
+            <svg viewBox="0 0 420 420" fill="none">
+              <circle cx="120" cy="220" r="7" class="origin-ring origin-ring-1"/>
+              <circle cx="120" cy="220" r="7" class="origin-ring origin-ring-2"/>
+              <circle cx="120" cy="220" r="7" fill="#E7A94C" class="pulse"/>
+              <text x="90" y="248" fill="var(--ink-2)" font-family="IBM Plex Mono, monospace" font-size="10">INDIA</text>
 
-            <circle cx="300" cy="90" r="4.5" fill="#9D4EDD"/>
-            <circle cx="340" cy="195" r="4.5" fill="#9D4EDD"/>
-            <circle cx="300" cy="290" r="4.5" fill="#9D4EDD"/>
-            <circle cx="190" cy="80" r="4.5" fill="#9D4EDD"/>
-            <circle cx="70" cy="90" r="4.5" fill="#9D4EDD"/>
+              <circle cx="300" cy="90" r="4.5" fill="#7B2FE0"/>
+              <circle cx="340" cy="195" r="4.5" fill="#7B2FE0"/>
+              <circle cx="300" cy="290" r="4.5" fill="#7B2FE0"/>
+              <circle cx="190" cy="80" r="4.5" fill="#7B2FE0"/>
+              <circle cx="70" cy="90" r="4.5" fill="#7B2FE0"/>
 
-            <path class="dash" d="M120 220 C 180 150, 230 110, 300 90" stroke="#9D4EDD" stroke-width="1.4" opacity=".6"/>
-            <path class="dash" d="M120 220 C 220 210, 280 200, 340 195" stroke="#9D4EDD" stroke-width="1.4" opacity=".6"/>
-            <path class="dash" d="M120 220 C 190 250, 240 275, 300 290" stroke="#9D4EDD" stroke-width="1.4" opacity=".6"/>
-            <path class="dash" d="M120 220 C 150 170, 165 120, 190 80" stroke="#9D4EDD" stroke-width="1.4" opacity=".6"/>
-            <path class="dash" d="M120 220 C 100 170, 85 130, 70 90" stroke="#9D4EDD" stroke-width="1.4" opacity=".6"/>
+              <path class="dash" d="M120 220 C 180 150, 230 110, 300 90" stroke="#7B2FE0" stroke-width="1.4" opacity=".45"/>
+              <path class="dash" d="M120 220 C 220 210, 280 200, 340 195" stroke="#7B2FE0" stroke-width="1.4" opacity=".45"/>
+              <path class="dash" d="M120 220 C 190 250, 240 275, 300 290" stroke="#7B2FE0" stroke-width="1.4" opacity=".45"/>
+              <path class="dash" d="M120 220 C 150 170, 165 120, 190 80" stroke="#7B2FE0" stroke-width="1.4" opacity=".45"/>
+              <path class="dash" d="M120 220 C 100 170, 85 130, 70 90" stroke="#7B2FE0" stroke-width="1.4" opacity=".45"/>
 
-            <text x="305" y="86" fill="rgba(255,255,255,.55)" font-family="IBM Plex Mono, monospace" font-size="8">EUROPE</text>
-            <text x="345" y="193" fill="rgba(255,255,255,.55)" font-family="IBM Plex Mono, monospace" font-size="8">SOUTHEAST ASIA</text>
-            <text x="305" y="306" fill="rgba(255,255,255,.55)" font-family="IBM Plex Mono, monospace" font-size="8">AFRICA</text>
-            <text x="160" y="70" fill="rgba(255,255,255,.55)" font-family="IBM Plex Mono, monospace" font-size="8">UAE</text>
-            <text x="30" y="80" fill="rgba(255,255,255,.55)" font-family="IBM Plex Mono, monospace" font-size="8">USA</text>
-          </svg>
+              <text x="305" y="86" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="8">GERMANY</text>
+              <text x="345" y="193" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="8">SINGAPORE</text>
+              <text x="305" y="306" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="8">SOUTH AFRICA</text>
+              <text x="160" y="70" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="8">UAE</text>
+              <text x="30" y="80" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="8">USA</text>
+            </svg>
 
-          <div class="live-cards" id="liveCards"></div>
-
-          <div class="route-label" style="top:18px; left:18px;">Live outreach network</div>
+            <div class="live-cards" id="liveCards"></div>
+          </div>
         </div>
 
-        <div class="live-metrics" id="liveMetrics">
-          <div class="metric">
-            <span class="metric-val" data-target="127">0</span>
-            <span class="metric-label">Emails sent</span>
+        <div class="dashboard-side">
+          <div class="today-card">
+            <h4>Today's Outreach</h4>
+            <div class="today-row">
+              <span class="today-icon today-icon-mail"></span>
+              <span class="today-label">Emails sent</span>
+              <span class="today-val" data-target="184">0</span>
+              <span class="today-trend">↑12%</span>
+            </div>
+            <div class="today-row">
+              <span class="today-icon today-icon-linkedin"></span>
+              <span class="today-label">LinkedIn messages</span>
+              <span class="today-val" data-target="62">0</span>
+              <span class="today-trend">↑8%</span>
+            </div>
+            <div class="today-row">
+              <span class="today-icon today-icon-reply"></span>
+              <span class="today-label">Replies received</span>
+              <span class="today-val" data-target="9">0</span>
+              <span class="today-trend">↑18%</span>
+            </div>
+            <div class="today-row">
+              <span class="today-icon today-icon-meeting"></span>
+              <span class="today-label">Meetings scheduled</span>
+              <span class="today-val" data-target="2">0</span>
+              <span class="today-trend">↑100%</span>
+            </div>
           </div>
-          <div class="metric">
-            <span class="metric-val" data-target="42">0</span>
-            <span class="metric-label">Replies</span>
-          </div>
-          <div class="metric">
-            <span class="metric-val" data-target="15">0</span>
-            <span class="metric-label">Meetings booked</span>
+
+          <div class="next-meeting-card">
+            <div class="meeting-date"><span class="meeting-month">MAY</span><span class="meeting-day">23</span></div>
+            <div class="meeting-info">
+              <span class="meeting-time">Fri · 11:00 AM</span>
+              <span class="meeting-title">Importer from UAE</span>
+              <span class="meeting-sub">Chemicals industry</span>
+            </div>
           </div>
         </div>
       </div>
