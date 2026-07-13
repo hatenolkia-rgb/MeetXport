@@ -42,7 +42,7 @@ No build step, no dependencies — pure HTML/CSS/JS. Open `index.html` directly 
 
 ## Known placeholders to update before going live
 
-- Phone number in `contact.html` and the footer (`+91 XXXXX XXXXX`)
+- Phone number in `contact.html` (`+91 XXXXX XXXXX`)
 - Email address `hello@meetxport.com` if that inbox isn't set up yet
 - Contact form currently saves submissions to the browser's `localStorage` (key: `meetxport_leads`) — wire it to a real backend (e.g. Supabase, like the UniEDD LMS) to actually receive leads
 - `login.html` is a visual shell only — connect real authentication before enabling it publicly
