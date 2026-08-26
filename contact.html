@@ -8,7 +8,7 @@
 <link rel="icon" type="image/png" href="assets/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;0,800;0,900;1,600&family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -53,14 +53,14 @@
     <div class="wrap">
       <div class="cta-section reveal" style="background:var(--white); border:1px solid var(--line); box-shadow:0 30px 60px -40px rgba(24,11,51,.2);">
         <div class="cta-grid">
-          <div class="cta-copy" style="color:var(--ink);">
+          <div class="cta-copy cta-light" style="color:var(--ink);">
             <span class="eyebrow">Reach us directly</span>
             <h2 style="color:var(--ink);">We reply within one business day.</h2>
             <p style="color:var(--muted);">Prefer WhatsApp or email? Use the details below — or fill in the form and we'll come to you.</p>
             <div class="cta-contact-line" style="color:var(--ink-2);">
-              <span>✉️ hello@meetxport.com</span>
-              <span>💬 +91 XXXXX XXXXX · WhatsApp</span>
-              <span>📍 Dubai, UAE · India</span>
+              <span><a href="mailto:admin@meetxport.com">✉️ admin@meetxport.com</a></span>
+              <span><a href="tel:+918319624287">💬 +91 83196 24287 · WhatsApp</a></span>
+              <span>📍 ETA-2, Greater Noida, Uttar Pradesh, India - 201310</span>
             </div>
             <div style="margin-top:34px;">
               <span class="eyebrow" style="margin-bottom:14px;">Not sure which service?</span>
@@ -86,6 +86,7 @@
                 <select id="interest">
                   <option value="outreach">Exclusive Outreach</option>
                   <option value="leads">Verified Buyer Leads</option>
+                  <option value="blueprint">Export Buyer Blueprint</option>
                   <option value="both">Both / Not sure yet</option>
                 </select>
               </div>
@@ -98,6 +99,7 @@
                 <textarea id="message" rows="3" placeholder="Volume, timeline, current markets..."></textarea>
               </div>
               <button type="submit" class="btn btn-primary btn-block">Submit inquiry <span class="btn-arrow">→</span></button>
+              <label class="consent-check"><input type="checkbox" required> <span>I agree to the <a href="terms.html">Terms &amp; Conditions</a>.</span></label>
               <p class="form-msg" id="formMsg">Thanks — your inquiry has been received. We'll reach out shortly.</p>
               <p class="field-hint">This form saves to your browser for now — connect a backend (e.g. Supabase) to receive submissions directly.</p>
             </form>
@@ -120,6 +122,7 @@
         <ul>
           <li><a href="services.html#outreach">Exclusive Outreach</a></li>
           <li><a href="services.html#leads">Verified Buyer Leads</a></li>
+          <li><a href="services.html#blueprint">Export Buyer Blueprint</a></li>
           <li><a href="login.html">Log in</a></li>
         </ul>
       </div>
@@ -133,15 +136,15 @@
       <div class="footer-col">
         <h5>Reach us</h5>
         <ul>
-          <li>hello@meetxport.com</li>
-          <li>Dubai, UAE</li>
-          <li>India</li>
+          <li><a href="mailto:admin@meetxport.com">admin@meetxport.com</a></li>
+          <li><a href="tel:+918319624287">+91 83196 24287</a></li>
+          <li>ETA-2, Greater Noida, Uttar Pradesh, India - 201310</li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
       <span>© 2026 Meetxport. All rights reserved.</span>
-      <span>Connecting India to the world.</span>
+      <span><a href="terms.html">Terms &amp; Conditions</a> · Connecting India to the world.</span>
     </div>
   </div>
 </footer>

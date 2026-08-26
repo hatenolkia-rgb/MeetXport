@@ -40,10 +40,9 @@ No build step, no dependencies — pure HTML/CSS/JS. Open `index.html` directly 
 3. No framework preset or build command needed — this is a static site. Root Directory should be left as `.` (repo root), since `index.html` lives there.
 4. Point your domain (e.g. `meetxport.com`) at the Vercel deployment via your DNS provider (Hostinger, GoDaddy, etc.).
 
-## Known placeholders to update before going live
+## Before going live
 
-- Phone number in `contact.html` (`+91 XXXXX XXXXX`)
-- Email address `hello@meetxport.com` if that inbox isn't set up yet
+- Contact details: `admin@meetxport.com`, `+91 83196 24287`, and ETA-2, Greater Noida, Uttar Pradesh, India - 201310
 - Contact form currently saves submissions to the browser's `localStorage` (key: `meetxport_leads`) — wire it to a real backend (e.g. Supabase, like the UniEDD LMS) to actually receive leads
 - `login.html` is a visual shell only — connect real authentication before enabling it publicly
 
