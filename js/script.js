@@ -174,7 +174,7 @@ function initMeetxportChat(){
     messages.scrollTop = messages.scrollHeight;
   }
 
-  function askNext(){
+  async function askNext(){
     const question = questions[state.step];
     if(!question){
       const entry = { ...state.answers, submittedAt:new Date().toISOString(), source:'chatbot' };
