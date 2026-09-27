@@ -94,9 +94,8 @@ document.addEventListener('DOMContentLoaded', () => {
     '3month': 'outreach',
     '6month': 'outreach',
     '12month': 'outreach',
-    'leads': 'leads',
-    'linkedin-addon': 'leads',
-    'whatsapp-addon': 'leads'
+    'shipment-insurance': 'shipment-insurance',
+    'event-meetings': 'event-meetings'
   };
   if(planToInterest[plan]) interestSelect.value = planToInterest[plan];
 });
@@ -105,6 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', () => {
   const dashboardEl = document.getElementById('routePanel');
   if(dashboardEl){
+    refreshDailyOutreach(dashboardEl);
     const vals = dashboardEl.querySelectorAll('.today-val');
     const metricsObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -144,6 +144,20 @@ document.addEventListener('DOMContentLoaded', () => {
     setInterval(spawnCard, 3800);
   }
 });
+
+function refreshDailyOutreach(dashboardEl){
+  const daySeed = Math.floor(Date.now() / 86400000);
+  const baseValues = [184, 62, 9, 2];
+  const dailyValues = baseValues.map((value, index) => {
+    const variation = ((daySeed + index * 7) % (index === 3 ? 2 : 17));
+    return value + variation;
+  });
+  dashboardEl.querySelectorAll('.today-val').forEach((el, index) => {
+    el.dataset.target = dailyValues[index];
+  });
+  dashboardEl.dataset.updatedDay = new Date().toISOString().slice(0, 10);
+  window.setTimeout(() => window.location.reload(), 86400000);
+}
 
 function animateCount(el){
   const target = parseInt(el.dataset.target, 10) || 0;
