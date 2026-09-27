@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /login.html
+Disallow: /terms.html
+Sitemap: https://meetxport.com/sitemap.xml

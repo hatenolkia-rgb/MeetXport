@@ -24,7 +24,36 @@ function setRole(role){
 }
 
 // Contact form submit -> localStorage (placeholder until backend is wired up)
-function handleSubmit(e){
+const leadEmailEndpoint = 'https://formsubmit.co/ajax/admin@meetxport.com';
+
+async function sendLeadByEmail(entry){
+  try{
+    const response = await fetch(leadEmailEndpoint, {
+      method:'POST',
+      headers:{ 'Content-Type':'application/json', 'Accept':'application/json' },
+      body:JSON.stringify({
+        ...entry,
+        _subject:'New Meetxport enquiry',
+        _captcha:'false',
+        _template:'table'
+      })
+    });
+    return response.ok;
+  }catch(error){
+    console.error('Could not send lead by email', error);
+    return false;
+  }
+}
+
+function saveLeadLocally(entry){
+  try{
+    const existing = JSON.parse(localStorage.getItem('meetxport_leads') || '[]');
+    existing.push(entry);
+    localStorage.setItem('meetxport_leads', JSON.stringify(existing));
+  }catch(err){ console.error('Could not save lead locally', err); }
+}
+
+async function handleSubmit(e){
   e.preventDefault();
   const entry = {
     role: window.__meetxportRole || 'exporter',
@@ -37,14 +66,16 @@ function handleSubmit(e){
     message: document.getElementById('message') ? document.getElementById('message').value : '',
     submittedAt: new Date().toISOString()
   };
-  try{
-    const existing = JSON.parse(localStorage.getItem('meetxport_leads') || '[]');
-    existing.push(entry);
-    localStorage.setItem('meetxport_leads', JSON.stringify(existing));
-  }catch(err){ console.error('Could not save lead locally', err); }
+  saveLeadLocally(entry);
+  const sent = await sendLeadByEmail(entry);
 
   const msg = document.getElementById('formMsg');
-  if(msg) msg.classList.add('show');
+  if(msg){
+    msg.textContent = sent
+      ? "Thanks — your inquiry has been sent. We'll reach out shortly."
+      : "Thanks — your inquiry is saved. Please also email admin@meetxport.com if you need an immediate reply.";
+    msg.classList.add('show');
+  }
   e.target.reset();
 }
 
@@ -96,7 +127,7 @@ function initMeetxportChat(){
     </button>
     <section class="chat-panel" id="chatPanel" aria-label="Meetxport assistant" aria-hidden="true">
       <div class="chat-header">
-        <div><strong>Quick enquiry</strong><span>We will get back to you shortly</span></div>
+        <div><strong>Quick enquiry</strong><span>Your details go to our team</span></div>
         <button class="chat-close" id="chatClose" type="button" aria-label="Close chat">×</button>
       </div>
       <div class="chat-messages" id="chatMessages" aria-live="polite"></div>
@@ -147,12 +178,11 @@ function initMeetxportChat(){
     const question = questions[state.step];
     if(!question){
       const entry = { ...state.answers, submittedAt:new Date().toISOString(), source:'chatbot' };
-      try{
-        const existing = JSON.parse(localStorage.getItem('meetxport_leads') || '[]');
-        existing.push(entry);
-        localStorage.setItem('meetxport_leads', JSON.stringify(existing));
-      }catch(error){ console.error('Could not save chat inquiry locally', error); }
-      addMessage('Thank you. Our team will connect with you shortly.', 'bot');
+      saveLeadLocally(entry);
+      const sent = await sendLeadByEmail(entry);
+      addMessage(sent
+        ? 'Thank you. Our team will connect with you shortly.'
+        : 'Thank you. Your details are saved. Please email admin@meetxport.com if you need an immediate reply.', 'bot');
       form.hidden = true;
       return;
     }
