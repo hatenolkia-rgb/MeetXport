@@ -66,37 +66,30 @@
           <div class="route-label"><span class="live-dot"></span>Live outreach network · updated daily</div>
 
           <div class="network-stage">
-            <svg viewBox="0 0 420 420" fill="none">
-              <path class="map-continent" d="M33 108 49 88 73 79 101 83 117 101 108 119 91 123 80 140 62 134 51 119 35 121Z"/>
-              <path class="map-continent" d="M112 151 128 163 137 191 132 219 119 239 108 226 111 202 101 183Z"/>
-              <path class="map-continent" d="M177 106 192 96 211 99 220 112 210 123 194 121 181 131 169 121Z"/>
-              <path class="map-continent" d="M217 137 244 124 280 128 306 143 340 146 369 164 377 186 355 196 331 186 307 194 284 181 258 185 239 173 221 164Z"/>
-              <path class="map-continent" d="M221 175 245 187 255 211 247 239 230 257 215 245 218 220 207 199Z"/>
-              <path class="map-continent" d="M322 232 347 228 368 241 360 256 335 258 318 247Z"/>
-              <path class="map-continent" d="M185 294 204 303 211 325 200 348 186 335 179 313Z"/>
-              <path class="map-grid" d="M24 84H382M19 148H390M18 212H392M22 276H386M28 340H378M70 52V370M140 48V374M210 44V376M280 48V374M350 54V368"/>
-              <circle cx="120" cy="220" r="7" class="origin-ring origin-ring-1"/>
-              <circle cx="120" cy="220" r="7" class="origin-ring origin-ring-2"/>
-              <circle cx="120" cy="220" r="7" fill="#E7A94C" class="pulse"/>
-              <text x="90" y="248" fill="var(--ink-2)" font-family="IBM Plex Mono, monospace" font-size="10">INDIA</text>
+            <svg id="networkMap" viewBox="0 0 420 420" fill="none">
+              <g id="countryMap" aria-label="World country map"></g>
+              <circle id="originRingOne" cx="120" cy="220" r="7" class="origin-ring origin-ring-1"/>
+              <circle id="originRingTwo" cx="120" cy="220" r="7" class="origin-ring origin-ring-2"/>
+              <circle id="originNode" cx="120" cy="220" r="7" fill="#E7A94C" class="pulse"/>
+              <text id="originLabel" x="90" y="248" fill="var(--ink-2)" font-family="IBM Plex Mono, monospace" font-size="10">INDIA</text>
 
-              <circle cx="300" cy="90" r="4.5" fill="#7B2FE0"/>
-              <circle cx="340" cy="195" r="4.5" fill="#7B2FE0"/>
-              <circle cx="300" cy="290" r="4.5" fill="#7B2FE0"/>
-              <circle cx="190" cy="80" r="4.5" fill="#7B2FE0"/>
-              <circle cx="70" cy="90" r="4.5" fill="#7B2FE0"/>
+              <circle id="nodeGermany" cx="300" cy="90" r="4.5" fill="#7B2FE0"/>
+              <circle id="nodeSingapore" cx="340" cy="195" r="4.5" fill="#7B2FE0"/>
+              <circle id="nodeSouthAfrica" cx="300" cy="290" r="4.5" fill="#7B2FE0"/>
+              <circle id="nodeUae" cx="190" cy="80" r="4.5" fill="#7B2FE0"/>
+              <circle id="nodeUsa" cx="70" cy="90" r="4.5" fill="#7B2FE0"/>
 
-              <path class="dash" d="M120 220 C 180 150, 230 110, 300 90" stroke="#7B2FE0" stroke-width="1.4" opacity=".45"/>
-              <path class="dash" d="M120 220 C 220 210, 280 200, 340 195" stroke="#7B2FE0" stroke-width="1.4" opacity=".45"/>
-              <path class="dash" d="M120 220 C 190 250, 240 275, 300 290" stroke="#7B2FE0" stroke-width="1.4" opacity=".45"/>
-              <path class="dash" d="M120 220 C 150 170, 165 120, 190 80" stroke="#7B2FE0" stroke-width="1.4" opacity=".45"/>
-              <path class="dash" d="M120 220 C 100 170, 85 130, 70 90" stroke="#7B2FE0" stroke-width="1.4" opacity=".45"/>
+              <path id="routeGermany" class="dash" d="M120 220 C 180 150, 230 110, 300 90" stroke="#7B2FE0" stroke-width="1.4" opacity=".45"/>
+              <path id="routeSingapore" class="dash" d="M120 220 C 220 210, 280 200, 340 195" stroke="#7B2FE0" stroke-width="1.4" opacity=".45"/>
+              <path id="routeSouthAfrica" class="dash" d="M120 220 C 190 250, 240 275, 300 290" stroke="#7B2FE0" stroke-width="1.4" opacity=".45"/>
+              <path id="routeUae" class="dash" d="M120 220 C 150 170, 165 120, 190 80" stroke="#7B2FE0" stroke-width="1.4" opacity=".45"/>
+              <path id="routeUsa" class="dash" d="M120 220 C 100 170, 85 130, 70 90" stroke="#7B2FE0" stroke-width="1.4" opacity=".45"/>
 
-              <text x="305" y="86" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="8">GERMANY</text>
-              <text x="345" y="193" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="8">SINGAPORE</text>
-              <text x="305" y="306" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="8">SOUTH AFRICA</text>
-              <text x="160" y="70" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="8">UAE</text>
-              <text x="30" y="80" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="8">USA</text>
+              <text id="labelGermany" x="305" y="86" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="8">GERMANY</text>
+              <text id="labelSingapore" x="345" y="193" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="8">SINGAPORE</text>
+              <text id="labelSouthAfrica" x="305" y="306" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="8">SOUTH AFRICA</text>
+              <text id="labelUae" x="160" y="70" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="8">UAE</text>
+              <text id="labelUsa" x="30" y="80" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="8">USA</text>
             </svg>
 
             <div class="live-cards" id="liveCards"></div>
@@ -105,7 +98,7 @@
 
         <div class="dashboard-side">
           <div class="today-card">
-            <h4>Today's Outreach</h4>
+            <h4>Today's Outreach <span class="today-updated" id="outreachUpdated"></span></h4>
             <div class="today-row">
               <span class="today-icon today-icon-mail"></span>
               <span class="today-label">Emails sent</span>
@@ -133,11 +126,11 @@
           </div>
 
           <div class="next-meeting-card">
-            <div class="meeting-date"><span class="meeting-month">MAY</span><span class="meeting-day">23</span></div>
+            <div class="meeting-date"><span class="meeting-month" id="meetingMonth">--</span><span class="meeting-day" id="meetingDay">--</span></div>
             <div class="meeting-info">
-              <span class="meeting-time">Fri · 11:00 AM</span>
-              <span class="meeting-title">Importer from UAE</span>
-              <span class="meeting-sub">Chemicals industry</span>
+              <span class="meeting-time" id="meetingTime">Updating today's schedule</span>
+              <span class="meeting-title" id="meetingTitle">Loading next meeting</span>
+              <span class="meeting-sub" id="meetingSub">Please wait</span>
             </div>
           </div>
         </div>
@@ -154,51 +147,35 @@
     </div>
   </div>
 
-  <!-- PROOF POINTS -->
-  <section class="proof-section">
+  <!-- GLOBAL EVENT RADAR -->
+  <section class="event-radar" aria-labelledby="event-radar-title">
     <div class="wrap">
-      <div class="section-head reveal">
-        <span class="eyebrow">The numbers behind the network</span>
-        <h2>Built for conversations that turn into commerce</h2>
-      </div>
-      <div class="proof-grid">
-        <div class="proof-stat reveal"><strong>2000+</strong><span>Exporters consulted</span></div>
-        <div class="proof-stat reveal"><strong>25+</strong><span>Buyer meets conducted daily</span></div>
-        <div class="proof-stat reveal"><strong>21.5%</strong><span>Buyer conversion ratio</span></div>
-        <div class="proof-stat reveal"><strong>5000+</strong><span>Policies</span></div>
-        <div class="proof-stat reveal"><strong>500 Cr+</strong><span>Sum of insurance claims</span></div>
+      <div class="event-radar-head reveal">
+        <div>
+          <span class="eyebrow">Global event radar</span>
+          <h2 id="event-radar-title">Meet the right people before you arrive.</h2>
+        </div>
+        <a href="services.html#event-meetings" class="btn btn-outline">Plan event meetings <span class="btn-arrow">→</span></a>
       </div>
     </div>
-  </section>
-
-  <!-- CLIENT REVIEWS -->
-  <section class="reviews-section" aria-labelledby="reviews-title">
-    <div class="wrap">
-      <div class="section-head reviews-heading reveal">
-        <span class="eyebrow">Client reviews</span>
-        <h2 id="reviews-title">The right buyer conversation changes everything.</h2>
-        <p>Real momentum starts when exporters have a reliable way to reach the people ready to buy.</p>
-      </div>
-    </div>
-    <div class="review-marquee" aria-label="Client reviews">
-      <div class="review-track">
-        <div class="review-card"><span class="quote-stars">★★★★★</span><p>“Meetxport helped us stop guessing which markets to pursue. The buyer conversations were relevant from day one.”</p><strong>Arjun Mehta</strong><span>Engineering components exporter</span></div>
-        <div class="review-card"><span class="quote-stars">★★★★★</span><p>“The outreach felt personal, not like a bulk campaign. We had qualified replies and a clear follow-up plan every week.”</p><strong>Neha Agarwal</strong><span>Home textiles exporter</span></div>
-        <div class="review-card"><span class="quote-stars">★★★★★</span><p>“The verified leads saved our team weeks of research. We could focus on presenting our product instead of finding contacts.”</p><strong>Rohan Shah</strong><span>Specialty chemicals exporter</span></div>
-        <div class="review-card"><span class="quote-stars">★★★★★</span><p>“Having meetings coordinated for us made international business feel much more accessible and structured.”</p><strong>Priya Nair</strong><span>Food ingredients exporter</span></div>
-        <div class="review-card"><span class="quote-stars">★★★★★</span><p>“The weekly reporting gave us a much clearer view of what was working and where to improve our offer.”</p><strong>Vikram Singh</strong><span>Auto parts exporter</span></div>
-        <div class="review-card"><span class="quote-stars">★★★★★</span><p>“We finally had a consistent buyer pipeline without adding another full-time person to the team.”</p><strong>Simran Kapoor</strong><span>Packaging exporter</span></div>
-        <div class="review-card"><span class="quote-stars">★★★★★</span><p>“The team understood our product quickly and helped us open conversations in markets we had not reached before.”</p><strong>Manish Batra</strong><span>Pharmaceutical exporter</span></div>
-        <div class="review-card"><span class="quote-stars">★★★★★</span><p>“Every update was clear and actionable. We always knew which buyers were interested and what to do next.”</p><strong>Kavita Rao</strong><span>Handicrafts exporter</span></div>
-
-        <div class="review-card" aria-hidden="true"><span class="quote-stars">★★★★★</span><p>“Meetxport helped us stop guessing which markets to pursue. The buyer conversations were relevant from day one.”</p><strong>Arjun Mehta</strong><span>Engineering components exporter</span></div>
-        <div class="review-card" aria-hidden="true"><span class="quote-stars">★★★★★</span><p>“The outreach felt personal, not like a bulk campaign. We had qualified replies and a clear follow-up plan every week.”</p><strong>Neha Agarwal</strong><span>Home textiles exporter</span></div>
-        <div class="review-card" aria-hidden="true"><span class="quote-stars">★★★★★</span><p>“The verified leads saved our team weeks of research. We could focus on presenting our product instead of finding contacts.”</p><strong>Rohan Shah</strong><span>Specialty chemicals exporter</span></div>
-        <div class="review-card" aria-hidden="true"><span class="quote-stars">★★★★★</span><p>“Having meetings coordinated for us made international business feel much more accessible and structured.”</p><strong>Priya Nair</strong><span>Food ingredients exporter</span></div>
-        <div class="review-card" aria-hidden="true"><span class="quote-stars">★★★★★</span><p>“The weekly reporting gave us a much clearer view of what was working and where to improve our offer.”</p><strong>Vikram Singh</strong><span>Auto parts exporter</span></div>
-        <div class="review-card" aria-hidden="true"><span class="quote-stars">★★★★★</span><p>“We finally had a consistent buyer pipeline without adding another full-time person to the team.”</p><strong>Simran Kapoor</strong><span>Packaging exporter</span></div>
-        <div class="review-card" aria-hidden="true"><span class="quote-stars">★★★★★</span><p>“The team understood our product quickly and helped us open conversations in markets we had not reached before.”</p><strong>Manish Batra</strong><span>Pharmaceutical exporter</span></div>
-        <div class="review-card" aria-hidden="true"><span class="quote-stars">★★★★★</span><p>“Every update was clear and actionable. We always knew which buyers were interested and what to do next.”</p><strong>Kavita Rao</strong><span>Handicrafts exporter</span></div>
+    <div class="event-marquee" aria-label="Worldwide trade events">
+      <div class="event-track">
+        <div class="event-pill"><strong>Gulfood</strong><span>Dubai · UAE</span></div>
+        <div class="event-pill"><strong>Hannover Messe</strong><span>Hannover · Germany</span></div>
+        <div class="event-pill"><strong>Canton Fair</strong><span>Guangzhou · China</span></div>
+        <div class="event-pill"><strong>Arab Health</strong><span>Dubai · UAE</span></div>
+        <div class="event-pill"><strong>SIAL Paris</strong><span>Paris · France</span></div>
+        <div class="event-pill"><strong>Ambiente</strong><span>Frankfurt · Germany</span></div>
+        <div class="event-pill"><strong>Intersolar Europe</strong><span>Munich · Germany</span></div>
+        <div class="event-pill"><strong>Cosmoprof Worldwide</strong><span>Bologna · Italy</span></div>
+        <div class="event-pill" aria-hidden="true"><strong>Gulfood</strong><span>Dubai · UAE</span></div>
+        <div class="event-pill" aria-hidden="true"><strong>Hannover Messe</strong><span>Hannover · Germany</span></div>
+        <div class="event-pill" aria-hidden="true"><strong>Canton Fair</strong><span>Guangzhou · China</span></div>
+        <div class="event-pill" aria-hidden="true"><strong>Arab Health</strong><span>Dubai · UAE</span></div>
+        <div class="event-pill" aria-hidden="true"><strong>SIAL Paris</strong><span>Paris · France</span></div>
+        <div class="event-pill" aria-hidden="true"><strong>Ambiente</strong><span>Frankfurt · Germany</span></div>
+        <div class="event-pill" aria-hidden="true"><strong>Intersolar Europe</strong><span>Munich · Germany</span></div>
+        <div class="event-pill" aria-hidden="true"><strong>Cosmoprof Worldwide</strong><span>Bologna · Italy</span></div>
       </div>
     </div>
   </section>
@@ -250,6 +227,55 @@
     </div>
   </section>
 
+  <!-- PROOF POINTS -->
+  <section class="proof-section">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">The numbers behind the network</span>
+        <h2>Built for conversations that turn into commerce</h2>
+      </div>
+      <div class="proof-grid">
+        <div class="proof-stat reveal"><strong>2000+</strong><span>Exporters consulted</span></div>
+        <div class="proof-stat reveal"><strong>25+</strong><span>Buyer meets conducted daily</span></div>
+        <div class="proof-stat reveal"><strong>21.5%</strong><span>Buyer conversion ratio</span></div>
+        <div class="proof-stat reveal"><strong>5000+</strong><span>Policies</span></div>
+        <div class="proof-stat reveal"><strong>500 Cr+</strong><span>Sum of insurance claims</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLIENT REVIEWS -->
+  <section class="reviews-section" aria-labelledby="reviews-title">
+    <div class="wrap">
+      <div class="section-head reviews-heading reveal">
+        <span class="eyebrow">Client reviews</span>
+        <h2 id="reviews-title">The right buyer conversation changes everything.</h2>
+        <p>Real momentum starts when exporters have a reliable way to reach the people ready to buy.</p>
+      </div>
+    </div>
+    <div class="review-marquee" aria-label="Client reviews">
+      <div class="review-track">
+        <div class="review-card"><span class="quote-stars">★★★★★</span><p>“Meetxport helped us stop guessing which markets to pursue. The buyer conversations were relevant from day one.”</p><strong>Arjun Mehta</strong><span>Engineering components exporter</span></div>
+        <div class="review-card"><span class="quote-stars">★★★★★</span><p>“The outreach felt personal, not like a bulk campaign. We had qualified replies and a clear follow-up plan every week.”</p><strong>Neha Agarwal</strong><span>Home textiles exporter</span></div>
+        <div class="review-card"><span class="quote-stars">★★★★★</span><p>“The verified leads saved our team weeks of research. We could focus on presenting our product instead of finding contacts.”</p><strong>Rohan Shah</strong><span>Specialty chemicals exporter</span></div>
+        <div class="review-card"><span class="quote-stars">★★★★★</span><p>“Having meetings coordinated for us made international business feel much more accessible and structured.”</p><strong>Priya Nair</strong><span>Food ingredients exporter</span></div>
+        <div class="review-card"><span class="quote-stars">★★★★★</span><p>“The weekly reporting gave us a much clearer view of what was working and where to improve our offer.”</p><strong>Vikram Singh</strong><span>Auto parts exporter</span></div>
+        <div class="review-card"><span class="quote-stars">★★★★★</span><p>“We finally had a consistent buyer pipeline without adding another full-time person to the team.”</p><strong>Simran Kapoor</strong><span>Packaging exporter</span></div>
+        <div class="review-card"><span class="quote-stars">★★★★★</span><p>“The team understood our product quickly and helped us open conversations in markets we had not reached before.”</p><strong>Manish Batra</strong><span>Pharmaceutical exporter</span></div>
+        <div class="review-card"><span class="quote-stars">★★★★★</span><p>“Every update was clear and actionable. We always knew which buyers were interested and what to do next.”</p><strong>Kavita Rao</strong><span>Handicrafts exporter</span></div>
+
+        <div class="review-card" aria-hidden="true"><span class="quote-stars">★★★★★</span><p>“Meetxport helped us stop guessing which markets to pursue. The buyer conversations were relevant from day one.”</p><strong>Arjun Mehta</strong><span>Engineering components exporter</span></div>
+        <div class="review-card" aria-hidden="true"><span class="quote-stars">★★★★★</span><p>“The outreach felt personal, not like a bulk campaign. We had qualified replies and a clear follow-up plan every week.”</p><strong>Neha Agarwal</strong><span>Home textiles exporter</span></div>
+        <div class="review-card" aria-hidden="true"><span class="quote-stars">★★★★★</span><p>“The verified leads saved our team weeks of research. We could focus on presenting our product instead of finding contacts.”</p><strong>Rohan Shah</strong><span>Specialty chemicals exporter</span></div>
+        <div class="review-card" aria-hidden="true"><span class="quote-stars">★★★★★</span><p>“Having meetings coordinated for us made international business feel much more accessible and structured.”</p><strong>Priya Nair</strong><span>Food ingredients exporter</span></div>
+        <div class="review-card" aria-hidden="true"><span class="quote-stars">★★★★★</span><p>“The weekly reporting gave us a much clearer view of what was working and where to improve our offer.”</p><strong>Vikram Singh</strong><span>Auto parts exporter</span></div>
+        <div class="review-card" aria-hidden="true"><span class="quote-stars">★★★★★</span><p>“We finally had a consistent buyer pipeline without adding another full-time person to the team.”</p><strong>Simran Kapoor</strong><span>Packaging exporter</span></div>
+        <div class="review-card" aria-hidden="true"><span class="quote-stars">★★★★★</span><p>“The team understood our product quickly and helped us open conversations in markets we had not reached before.”</p><strong>Manish Batra</strong><span>Pharmaceutical exporter</span></div>
+        <div class="review-card" aria-hidden="true"><span class="quote-stars">★★★★★</span><p>“Every update was clear and actionable. We always knew which buyers were interested and what to do next.”</p><strong>Kavita Rao</strong><span>Handicrafts exporter</span></div>
+      </div>
+    </div>
+  </section>
+
   <!-- HOW IT WORKS -->
   <section id="how-section">
     <div class="wrap">
@@ -262,6 +288,7 @@
 
         <div class="tabs">
           <button class="tab-btn active" onclick="showTab('outreach', this, 'how')">Exclusive Outreach</button>
+          <button class="tab-btn" onclick="showTab('shipment-insurance', this, 'how')">Shipment Insurance &amp; Claims</button>
           <button class="tab-btn" onclick="showTab('event-meetings', this, 'how')">Dedicated Event Meetings</button>
         </div>
 
@@ -277,6 +304,13 @@
           <div class="step-card"><span class="step-num">02</span><h4>We find the right people</h4><p>We research exhibitors, buyers and decision-makers relevant to your business.</p></div>
           <div class="step-card"><span class="step-num">03</span><h4>Meetings are arranged</h4><p>We reach out, confirm interest and coordinate suitable time slots before your visit.</p></div>
           <div class="step-card"><span class="step-num">04</span><h4>You arrive prepared</h4><p>Your schedule is organized so you know who to meet, where to go and what to discuss.</p></div>
+        </div>
+
+        <div class="tab-panel" id="tab-shipment-insurance">
+          <div class="step-card"><span class="step-num">01</span><h4>Share your shipment details</h4><p>Tell us your product, route, shipment value and planned dispatch date.</p></div>
+          <div class="step-card"><span class="step-num">02</span><h4>We review the risk</h4><p>We help you understand suitable shipment insurance cover and important exclusions.</p></div>
+          <div class="step-card"><span class="step-num">03</span><h4>Prepare the documents</h4><p>If something goes wrong, we help organize the records and evidence needed for a claim.</p></div>
+          <div class="step-card"><span class="step-num">04</span><h4>Follow up clearly</h4><p>We guide you through the next steps and follow-up process for a smoother claim.</p></div>
         </div>
       </div>
     </div>
@@ -360,6 +394,7 @@
           <li><a href="mailto:admin@meetxport.com">admin@meetxport.com</a></li>
           <li><a href="tel:+918319624287">+91 83196 24287</a></li>
           <li>ETA-2, Greater Noida, Uttar Pradesh, India - 201310</li>
+          <li>Raipur, Chhattisgarh, India</li>
         </ul>
       </div>
     </div>
@@ -370,6 +405,8 @@
   </div>
 </footer>
 
-<script src="js/script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
+<script src="js/script.js?v=20260928-chat2"></script>
 </body>
 </html>

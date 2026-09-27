@@ -76,6 +76,7 @@ function handleAuth(e, type){
 
 // Scroll reveal
 document.addEventListener('DOMContentLoaded', () => {
+  initMeetxportChat();
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if(entry.isIntersecting){ entry.target.classList.add('in'); }
@@ -83,6 +84,110 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 });
+
+function initMeetxportChat(){
+  if(document.getElementById('meetxportChat')) return;
+  const chat = document.createElement('aside');
+  chat.id = 'meetxportChat';
+  chat.className = 'meetxport-chat';
+  chat.innerHTML = `
+    <button class="chat-launcher" id="chatLauncher" type="button" aria-controls="chatPanel" aria-expanded="false">
+      <span class="chat-launcher-icon" aria-hidden="true">✦</span><span>Talk to us</span>
+    </button>
+    <section class="chat-panel" id="chatPanel" aria-label="Meetxport assistant" aria-hidden="true">
+      <div class="chat-header">
+        <div><strong>Quick enquiry</strong><span>We will get back to you shortly</span></div>
+        <button class="chat-close" id="chatClose" type="button" aria-label="Close chat">×</button>
+      </div>
+      <div class="chat-messages" id="chatMessages" aria-live="polite"></div>
+      <form class="chat-form" id="chatForm">
+        <input id="chatInput" autocomplete="off" placeholder="Type your answer..." aria-label="Your answer" required>
+        <button type="submit" aria-label="Send message">→</button>
+      </form>
+    </section>`;
+  document.body.appendChild(chat);
+
+  const launcher = document.getElementById('chatLauncher');
+  const panel = document.getElementById('chatPanel');
+  const close = document.getElementById('chatClose');
+  const messages = document.getElementById('chatMessages');
+  const form = document.getElementById('chatForm');
+  const input = document.getElementById('chatInput');
+  const state = { step: 0, answers: {} };
+
+  const questions = [
+    { key:'service', text:'Hi. What can we help you with?', choices:['Buyer outreach','Shipment insurance','Event meetings'] },
+    { key:'product', text:'What product or business do you work with?', placeholder:'Product or company' },
+    { key:'contact', text:'Your name and email or phone number?', placeholder:'Name + email or phone' }
+  ];
+
+  function addMessage(text, sender){
+    const bubble = document.createElement('div');
+    bubble.className = 'chat-message ' + sender;
+    bubble.textContent = text;
+    messages.appendChild(bubble);
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+  function addChoices(choices){
+    const row = document.createElement('div');
+    row.className = 'chat-choices';
+    choices.forEach(choice => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.textContent = choice;
+      button.addEventListener('click', () => submitAnswer(choice));
+      row.appendChild(button);
+    });
+    messages.appendChild(row);
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+  function askNext(){
+    const question = questions[state.step];
+    if(!question){
+      const entry = { ...state.answers, submittedAt:new Date().toISOString(), source:'chatbot' };
+      try{
+        const existing = JSON.parse(localStorage.getItem('meetxport_leads') || '[]');
+        existing.push(entry);
+        localStorage.setItem('meetxport_leads', JSON.stringify(existing));
+      }catch(error){ console.error('Could not save chat inquiry locally', error); }
+      addMessage('Thank you. Our team will connect with you shortly.', 'bot');
+      form.hidden = true;
+      return;
+    }
+    addMessage(question.text, 'bot');
+    input.placeholder = question.placeholder || 'Type your answer...';
+    if(question.choices) addChoices(question.choices);
+    else input.focus();
+  }
+
+  function submitAnswer(answer){
+    const question = questions[state.step];
+    state.answers[question.key] = answer;
+    addMessage(answer, 'user');
+    state.step += 1;
+    askNext();
+  }
+
+  function toggleChat(open){
+    panel.classList.toggle('open', open);
+    panel.setAttribute('aria-hidden', String(!open));
+    launcher.setAttribute('aria-expanded', String(open));
+    if(open && !messages.children.length) askNext();
+    if(open) input.focus();
+  }
+
+  launcher.addEventListener('click', () => toggleChat(!panel.classList.contains('open')));
+  close.addEventListener('click', () => toggleChat(false));
+  form.addEventListener('submit', event => {
+    event.preventDefault();
+    const answer = input.value.trim();
+    if(!answer) return;
+    input.value = '';
+    submitAnswer(answer);
+  });
+}
 
 // Pre-fill contact form "Interested in" from ?plan= links on services.html
 document.addEventListener('DOMContentLoaded', () => {
@@ -102,6 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Hero outreach dashboard: count-up stats, floating "buyer activity" cards
 document.addEventListener('DOMContentLoaded', () => {
+  renderWorldMap();
   const dashboardEl = document.getElementById('routePanel');
   if(dashboardEl){
     refreshDailyOutreach(dashboardEl);
@@ -149,14 +255,106 @@ function refreshDailyOutreach(dashboardEl){
   const daySeed = Math.floor(Date.now() / 86400000);
   const baseValues = [184, 62, 9, 2];
   const dailyValues = baseValues.map((value, index) => {
-    const variation = ((daySeed + index * 7) % (index === 3 ? 2 : 17));
+    const variation = ((daySeed + index * 11) % (index === 3 ? 4 : 31));
     return value + variation;
   });
   dashboardEl.querySelectorAll('.today-val').forEach((el, index) => {
     el.dataset.target = dailyValues[index];
   });
+  const updatedLabel = dashboardEl.querySelector('#outreachUpdated');
+  if(updatedLabel){
+    updatedLabel.textContent = 'Updated ' + new Intl.DateTimeFormat('en-IN', {
+      day:'2-digit', month:'short', year:'numeric'
+    }).format(new Date());
+  }
+  const meetingOptions = [
+    { days: 1, time: 'Thu · 10:30 AM', title: 'Importer from Germany', industry: 'Auto components' },
+    { days: 2, time: 'Fri · 11:00 AM', title: 'Buyer from UAE', industry: 'Chemicals industry' },
+    { days: 3, time: 'Sat · 02:00 PM', title: 'Distributor from Singapore', industry: 'Food ingredients' },
+    { days: 4, time: 'Sun · 09:30 AM', title: 'Procurement team from USA', industry: 'Engineering goods' },
+    { days: 5, time: 'Mon · 12:30 PM', title: 'Buyer from South Africa', industry: 'Packaging materials' }
+  ];
+  const meeting = meetingOptions[daySeed % meetingOptions.length];
+  const meetingDate = new Date(Date.now() + meeting.days * 86400000);
+  const meetingMonth = dashboardEl.querySelector('#meetingMonth');
+  const meetingDay = dashboardEl.querySelector('#meetingDay');
+  const meetingTime = dashboardEl.querySelector('#meetingTime');
+  const meetingTitle = dashboardEl.querySelector('#meetingTitle');
+  const meetingSub = dashboardEl.querySelector('#meetingSub');
+  if(meetingMonth) meetingMonth.textContent = new Intl.DateTimeFormat('en-IN', { month:'short' }).format(meetingDate).toUpperCase();
+  if(meetingDay) meetingDay.textContent = meetingDate.getDate();
+  if(meetingTime) meetingTime.textContent = meeting.time;
+  if(meetingTitle) meetingTitle.textContent = meeting.title;
+  if(meetingSub) meetingSub.textContent = meeting.industry;
   dashboardEl.dataset.updatedDay = new Date().toISOString().slice(0, 10);
-  window.setTimeout(() => window.location.reload(), 86400000);
+  const untilNextUtcDay = 86400000 - (Date.now() % 86400000) + 1000;
+  window.setTimeout(() => window.location.reload(), untilNextUtcDay);
+}
+
+async function renderWorldMap(){
+  const map = document.getElementById('networkMap');
+  const countryMap = document.getElementById('countryMap');
+  if(!map || !countryMap || typeof d3 === 'undefined' || typeof topojson === 'undefined') return;
+
+  try{
+    const world = await fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json').then(response => {
+      if(!response.ok) throw new Error('World map data could not be loaded');
+      return response.json();
+    });
+    const countries = topojson.feature(world, world.objects.countries);
+    const projection = d3.geoNaturalEarth1().fitExtent([[18, 52], [402, 368]], countries);
+    const path = d3.geoPath(projection);
+    const graticule = d3.geoGraticule().step([30, 20]);
+
+    countryMap.innerHTML = '<path class="map-graticule" d="' + path(graticule()) + '"></path>';
+    countries.features.forEach(country => {
+      const countryPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      const countryId = String(country.id);
+      countryPath.setAttribute('d', path(country));
+      countryPath.setAttribute('class', 'map-country' + (countryId === '356' ? ' is-origin' : '') + (countryId === '840' || countryId === '276' || countryId === '702' || countryId === '710' || countryId === '784' ? ' is-destination' : ''));
+      countryMap.appendChild(countryPath);
+    });
+
+    const locations = {
+      India: [78.9629, 20.5937],
+      Germany: [10.4515, 51.1657],
+      Singapore: [103.8198, 1.3521],
+      SouthAfrica: [24.9916, -30.5595],
+      Uae: [54.3773, 24.4539],
+      Usa: [-100, 39.5]
+    };
+    const points = Object.fromEntries(Object.entries(locations).map(([name, coordinates]) => [name, projection(coordinates)]));
+    const origin = points.India;
+    const destinations = ['Germany', 'Singapore', 'SouthAfrica', 'Uae', 'Usa'];
+
+    setSvgPoint('originRingOne', origin);
+    setSvgPoint('originRingTwo', origin);
+    setSvgPoint('originNode', origin);
+    setSvgText('originLabel', origin, -28, 28);
+    destinations.forEach(name => {
+      setSvgPoint('node' + name, points[name]);
+      setSvgText('label' + name, points[name], name === 'Usa' ? -22 : 7, name === 'SouthAfrica' ? 18 : -7);
+      document.getElementById('route' + name)?.setAttribute('d', routePath(origin, points[name]));
+    });
+  }catch(error){
+    console.error('Could not render world map', error);
+  }
+}
+
+function setSvgPoint(id, point){
+  const element = document.getElementById(id);
+  if(element && point){ element.setAttribute('cx', point[0]); element.setAttribute('cy', point[1]); }
+}
+
+function setSvgText(id, point, xOffset, yOffset){
+  const element = document.getElementById(id);
+  if(element && point){ element.setAttribute('x', point[0] + xOffset); element.setAttribute('y', point[1] + yOffset); }
+}
+
+function routePath(origin, destination){
+  const midpointX = (origin[0] + destination[0]) / 2;
+  const midpointY = (origin[1] + destination[1]) / 2 - Math.min(38, Math.abs(destination[0] - origin[0]) * .08);
+  return 'M' + origin[0] + ' ' + origin[1] + ' Q' + midpointX + ' ' + midpointY + ' ' + destination[0] + ' ' + destination[1];
 }
 
 function animateCount(el){
