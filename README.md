@@ -42,7 +42,7 @@ No build step, no dependencies — pure HTML/CSS/JS. Open `index.html` directly 
 
 ## Before going live
 
-- Contact details: `admin@meetxport.com`, `+91 83196 24287`, and ETA-2, Greater Noida, Uttar Pradesh, India - 201310
+- Contact details: `admin@meetxport.com`, `+91 83196 24287`, and Greater Noida, Uttar Pradesh, India - 201310
 - Contact form currently saves submissions to the browser's `localStorage` (key: `meetxport_leads`) — wire it to a real backend (e.g. Supabase, like the UniEDD LMS) to actually receive leads
 - `login.html` is a visual shell only — connect real authentication before enabling it publicly
 
