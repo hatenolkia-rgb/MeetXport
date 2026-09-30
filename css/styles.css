@@ -600,3 +600,20 @@ footer{ padding:64px 0 30px; }
 .chat-form button{ width:38px; border:0; border-radius:9px; background:var(--gold); color:var(--ink); font-size:20px; cursor:pointer; }
 @media (max-width:560px){ .meetxport-chat{ right:16px; bottom:16px; } .chat-panel{ bottom:58px; } .chat-launcher{ padding:12px 15px; } }
 @media (prefers-reduced-motion:reduce){ .chat-panel.open{ animation:none; } .chat-launcher:hover{ transform:none; } }
+
+/* ── FAQ (homepage) ───────────────────────────────────────────────── */
+#faq{ background:var(--white); }
+.faq-list{ max-width:860px; display:flex; flex-direction:column; gap:12px; }
+.faq-item{ border:1px solid var(--line); border-radius:14px; background:var(--paper); transition:border-color .2s, box-shadow .2s; }
+.faq-item[open]{ border-color:rgba(123,47,224,.35); box-shadow:0 10px 30px -18px rgba(24,11,51,.35); }
+.faq-item summary{ list-style:none; cursor:pointer; display:flex; align-items:center; justify-content:space-between; gap:16px; padding:20px 22px; font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:17px; color:var(--ink); }
+.faq-item summary::-webkit-details-marker{ display:none; }
+.faq-item summary::after{ content:'+'; flex-shrink:0; width:28px; height:28px; border-radius:50%; display:grid; place-items:center; background:rgba(123,47,224,.1); color:var(--purple); font-size:18px; font-weight:600; transition:transform .2s; }
+.faq-item[open] summary::after{ transform:rotate(45deg); }
+.faq-item summary:focus-visible{ outline:2px solid var(--purple); outline-offset:3px; border-radius:14px; }
+.faq-item p{ padding:0 22px 20px; color:var(--muted); font-size:15px; line-height:1.65; margin:0; }
+.faq-item p a{ color:var(--purple); font-weight:600; }
+.faq-more{ margin-top:26px; color:var(--muted); font-size:15px; }
+.faq-more a{ color:var(--purple); font-weight:600; }
+@media (max-width:560px){ .faq-item summary{ font-size:15.5px; padding:17px 18px; } .faq-item p{ padding:0 18px 17px; font-size:14.5px; } }
+@media (prefers-reduced-motion: reduce){ .faq-item summary::after{ transition:none; } }
