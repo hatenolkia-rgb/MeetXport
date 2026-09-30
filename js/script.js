@@ -229,6 +229,10 @@ document.addEventListener('DOMContentLoaded', () => {
     '3month': 'outreach',
     '6month': 'outreach',
     '12month': 'outreach',
+    'leads': 'leads',
+    'linkedin-addon': 'leads',
+    'whatsapp-addon': 'leads',
+    'blueprint': 'blueprint',
     'shipment-insurance': 'shipment-insurance',
     'event-meetings': 'event-meetings'
   };
@@ -399,3 +403,9 @@ function animateCount(el){
   }
   requestAnimationFrame(tick);
 }
+
+// Trade fair gallery video: don't autoplay for visitors who prefer reduced motion.
+document.addEventListener('DOMContentLoaded', () => {
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  document.querySelectorAll('.fair-video video').forEach(v => { v.removeAttribute('autoplay'); v.pause(); v.controls = true; });
+});
