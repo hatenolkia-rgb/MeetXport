@@ -109,6 +109,9 @@ nav.wrap{ display:flex; align-items:center; justify-content:space-between; paddi
 .page-header .eyebrow{ margin-bottom:14px; }
 .page-header h1{ font-size:clamp(30px,4.4vw,48px); font-weight:700; letter-spacing:-0.02em; max-width:720px; }
 .page-header p{ margin-top:16px; color:var(--muted); font-size:17px; max-width:600px; }
+.page-header-split{ display:grid; grid-template-columns:minmax(0,1fr) auto; gap:48px; align-items:center; }
+.page-header-logo{ width:clamp(280px,32vw,460px); height:auto; }
+@media (max-width:860px){ .page-header-split{ grid-template-columns:1fr; } .page-header-logo{ display:none; } }
 .crumb{ font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; margin-bottom:16px; }
 .crumb a:hover{ color:var(--purple); }
 
@@ -555,7 +558,7 @@ footer{ padding:64px 0 30px; }
 @media (max-width:860px){ .team-grid{ grid-template-columns:1fr 1fr; } }
 @media (max-width:560px){ .team-grid{ grid-template-columns:1fr; } }
 .team-card{ overflow:hidden; border:1px solid var(--line); border-radius:16px; background:var(--white); }
-.team-card img{ display:block; width:100%; height:auto; aspect-ratio:1 / 1; object-fit:cover; object-position:center; }
+.team-card img{ display:block; width:100%; height:auto; aspect-ratio:1 / 1; object-fit:cover; object-position:center; background:var(--purple-tint); border-bottom:1px solid var(--line); }
 .team-card-body{ padding:22px; }
 .team-role{ display:block; margin-bottom:9px; color:var(--purple); font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; }
 .team-card h3{ font-size:18px; line-height:1.2; margin-bottom:9px; }
