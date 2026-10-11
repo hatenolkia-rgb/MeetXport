@@ -653,3 +653,29 @@ footer{ padding:64px 0 30px; }
   .fair-tile figcaption{ font-size:13px; left:12px; bottom:10px; }
 }
 @media (prefers-reduced-motion: reduce){ .fair-tile img, .fair-tile video{ transition:none; } }
+
+/* ── Services page: index + group headings ─────────────────────── */
+.service-index{ padding:44px 0 56px; }
+.service-index-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+.service-index-card{ background:var(--white); border:1px solid var(--line); border-radius:var(--radius); padding:20px 22px; }
+.service-index-title{ display:flex; align-items:baseline; gap:10px; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:16.5px; color:var(--ink); margin-bottom:10px; }
+.service-index-title span{ font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--purple); }
+.service-index-title:hover{ color:var(--purple); }
+.service-index-card li{ font-size:14px; padding:4px 0 4px 30px; }
+.service-index-card li a{ color:var(--muted); }
+.service-index-card li a:hover{ color:var(--purple); }
+.service-group{ background:var(--ink); color:var(--white); padding:56px 0 48px; scroll-margin-top:80px; }
+.service-group-head{ display:flex; gap:24px; align-items:flex-start; margin-bottom:24px; }
+.service-group-num{ font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:44px; line-height:1; color:var(--gold); }
+.service-group-head h2{ color:var(--white); font-size:clamp(26px,3.4vw,38px); font-weight:700; }
+.service-group-head p{ color:rgba(255,255,255,.72); font-size:16px; margin-top:8px; max-width:640px; }
+.service-group .chip{ background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.18); color:var(--white); }
+.service-group .chip:hover{ border-color:var(--gold); }
+.offer-block{ scroll-margin-top:80px; }
+@media (max-width:900px){ .service-index-grid{ grid-template-columns:1fr 1fr; } }
+@media (max-width:600px){ .service-index-grid{ grid-template-columns:1fr; } .service-group-head{ gap:14px; } .service-group-num{ font-size:32px; } }
+.service-links{ margin:14px 0 4px; }
+.service-links li{ font-size:14px; padding:6px 0; border-top:1px solid var(--line); }
+.service-links li a{ color:var(--ink-2); font-weight:500; }
+.service-links li a::before{ content:'→ '; color:var(--purple-2); }
+.service-links li a:hover{ color:var(--purple); }

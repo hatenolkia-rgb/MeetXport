@@ -234,7 +234,15 @@ document.addEventListener('DOMContentLoaded', () => {
     'whatsapp-addon': 'leads',
     'blueprint': 'blueprint',
     'shipment-insurance': 'shipment-insurance',
-    'event-meetings': 'event-meetings'
+    'event-meetings': 'event-meetings',
+    'direct-buyer-meet': 'direct-buyer-meet',
+    'curated-buyers': 'curated-buyers',
+    'factory-visits': 'factory-visits',
+    'buyer-verification': 'buyer-verification',
+    'payment-recovery': 'payment-recovery',
+    'documentation': 'documentation',
+    'shipment-check': 'shipment-check',
+    'ecgc': 'ecgc'
   };
   if(planToInterest[plan]) interestSelect.value = planToInterest[plan];
 });
