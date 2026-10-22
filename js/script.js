@@ -45,6 +45,21 @@ async function sendLeadByEmail(entry){
   }
 }
 
+// Files the enquiry as a lead in the Meetxport CRM (api/lead.js)
+async function sendLeadToCrm(entry){
+  try{
+    const response = await fetch('/api/lead', {
+      method:'POST',
+      headers:{ 'Content-Type':'application/json' },
+      body:JSON.stringify(entry)
+    });
+    return response.ok;
+  }catch(error){
+    console.error('Could not file lead in CRM', error);
+    return false;
+  }
+}
+
 function saveLeadLocally(entry){
   try{
     const existing = JSON.parse(localStorage.getItem('meetxport_leads') || '[]');
@@ -67,7 +82,8 @@ async function handleSubmit(e){
     submittedAt: new Date().toISOString()
   };
   saveLeadLocally(entry);
-  const sent = await sendLeadByEmail(entry);
+  const [emailed, filed] = await Promise.all([sendLeadByEmail(entry), sendLeadToCrm(entry)]);
+  const sent = emailed || filed;
 
   const msg = document.getElementById('formMsg');
   if(msg){
@@ -179,7 +195,8 @@ function initMeetxportChat(){
     if(!question){
       const entry = { ...state.answers, submittedAt:new Date().toISOString(), source:'chatbot' };
       saveLeadLocally(entry);
-      const sent = await sendLeadByEmail(entry);
+      const [emailed, filed] = await Promise.all([sendLeadByEmail(entry), sendLeadToCrm(entry)]);
+      const sent = emailed || filed;
       addMessage(sent
         ? 'Thank you. Our team will connect with you shortly.'
         : 'Thank you. Your details are saved. Please email admin@meetxport.com if you need an immediate reply.', 'bot');

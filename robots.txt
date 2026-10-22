@@ -2,4 +2,5 @@ User-agent: *
 Allow: /
 Disallow: /login.html
 Disallow: /terms.html
+Disallow: /crm.html
 Sitemap: https://meetxport.com/sitemap.xml

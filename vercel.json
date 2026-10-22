@@ -1,0 +1,9 @@
+{
+  "functions": {
+    "api/meta-webhook.js": { "maxDuration": 30 },
+    "api/crm.js": { "maxDuration": 60 }
+  },
+  "crons": [
+    { "path": "/api/crm?cron=sync", "schedule": "30 3 * * *" }
+  ]
+}

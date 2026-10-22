@@ -1,0 +1,9 @@
+{
+  "name": "meetxport",
+  "private": true,
+  "description": "Meetxport website, CRM and its Vercel API functions",
+  "engines": { "node": ">=18" },
+  "dependencies": {
+    "@supabase/supabase-js": "2.45.4"
+  }
+}

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRM — Meetxport</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" href="assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css?v=20261020-crm">
+<link rel="stylesheet" href="css/crm.css?v=20261020-crm">
+</head>
+<body class="crm-body">
+
+<!-- Sign in -->
+<section class="crm-auth" id="authView" hidden>
+  <div class="crm-auth-card">
+    <img src="assets/logo.png" alt="Meetxport logo" class="crm-auth-logo">
+    <h1>Meetxport CRM</h1>
+    <p class="crm-muted" id="authIntro">Team sign in</p>
+
+    <form id="loginForm" class="crm-form">
+      <div class="field"><label for="loginEmail">Email</label><input id="loginEmail" type="email" autocomplete="username" required></div>
+      <div class="field"><label for="loginPassword">Password</label><input id="loginPassword" type="password" autocomplete="current-password" required></div>
+      <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+      <button type="button" class="crm-link" id="forgotBtn">Forgot password?</button>
+    </form>
+
+    <form id="resetForm" class="crm-form" hidden>
+      <div class="field"><label for="newPassword">New password</label><input id="newPassword" type="password" autocomplete="new-password" minlength="8" required></div>
+      <button type="submit" class="btn btn-primary btn-block">Save new password</button>
+    </form>
+
+    <p class="crm-auth-msg" id="authMsg" role="status"></p>
+  </div>
+</section>
+
+<!-- Setup notice when Supabase keys are missing -->
+<section class="crm-auth" id="setupView" hidden>
+  <div class="crm-auth-card">
+    <img src="assets/logo.png" alt="Meetxport logo" class="crm-auth-logo">
+    <h1>CRM not connected yet</h1>
+    <p class="crm-muted">Add the Supabase project URL and anon key to <code>js/supabase-config.js</code>, then reload this page.</p>
+  </div>
+</section>
+
+<!-- App -->
+<div class="crm-app" id="appView" hidden>
+  <aside class="crm-side">
+    <a href="index.html" class="crm-brand"><img src="assets/logo.png" alt="Meetxport"><span>CRM</span></a>
+    <nav class="crm-nav" id="crmNav">
+      <button type="button" data-view="overview" class="active">Overview</button>
+      <button type="button" data-view="leads">Leads <span class="crm-count" id="countLeads"></span></button>
+      <button type="button" data-view="buyers">Buyers</button>
+      <button type="button" data-view="meetings">Meetings</button>
+      <button type="button" data-view="tasks">Tasks <span class="crm-count" id="countTasks"></span></button>
+      <button type="button" data-view="team" data-super hidden>Team</button>
+      <button type="button" data-view="settings" data-super hidden>Settings</button>
+    </nav>
+    <div class="crm-user">
+      <span id="userEmail"></span>
+      <span class="crm-role" id="userRole"></span>
+      <button type="button" class="crm-link" id="signOutBtn">Sign out</button>
+    </div>
+  </aside>
+
+  <main class="crm-main">
+    <header class="crm-top">
+      <h1 id="viewTitle">Overview</h1>
+      <div class="crm-top-actions">
+        <input type="search" id="searchInput" placeholder="Search…" aria-label="Search">
+        <button type="button" class="btn btn-outline btn-sm" id="refreshBtn" title="Reload data">↻</button>
+        <button type="button" class="btn btn-purple btn-sm" id="newBtn">+ New</button>
+      </div>
+    </header>
+    <div class="crm-filters" id="filterBar"></div>
+    <div id="viewBody" class="crm-view"></div>
+  </main>
+</div>
+
+<!-- Record drawer -->
+<div class="crm-scrim" id="scrim" hidden></div>
+<aside class="crm-drawer" id="drawer" aria-hidden="true" aria-labelledby="drawerTitle">
+  <header class="crm-drawer-head">
+    <div>
+      <span class="crm-kicker" id="drawerKind"></span>
+      <h2 id="drawerTitle"></h2>
+    </div>
+    <button type="button" class="crm-close" id="drawerClose" aria-label="Close">×</button>
+  </header>
+  <div class="crm-drawer-top" id="drawerTop"></div>
+  <form id="recordForm" class="crm-form crm-drawer-body" novalidate></form>
+  <div class="crm-related" id="drawerRelated"></div>
+  <footer class="crm-drawer-foot">
+    <button type="button" class="crm-link crm-danger" id="deleteBtn">Delete</button>
+    <div class="crm-drawer-actions" id="drawerExtra"></div>
+    <button type="submit" form="recordForm" class="btn btn-primary btn-sm" id="saveBtn">Save</button>
+  </footer>
+</aside>
+
+<div class="crm-toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="js/supabase-config.js?v=20261020-crm"></script>
+<script src="js/crm.js?v=20261020-crm"></script>
+</body>
+</html>
