@@ -34,6 +34,7 @@ async function sendLeadByEmail(entry){
       body:JSON.stringify({
         ...entry,
         _subject:'New Meetxport enquiry',
+        _cc:'mantririddhi05@gmail.com',
         _captcha:'false',
         _template:'table'
       })

@@ -611,6 +611,7 @@ function viewSettings(){
       <form class="crm-form" id="settingsForm">
         ${toggle('auto_welcome_whatsapp', 'Send the WhatsApp welcome to every new lead automatically')}
         ${toggle('auto_welcome_email', 'Send the welcome email to every new lead automatically')}
+        ${text('notify_emails', 'New lead alerts go to', 'Emails separated by commas. Instagram, Facebook and WhatsApp leads; website enquiries are emailed by the site itself.')}
         ${text('community_link', 'WhatsApp community link', 'Sent with the "Community link" action and at the end of the Instagram chat.')}
         <div class="field-row">${text('wa_template_welcome', 'Welcome template name')}${text('wa_template_community', 'Community template name')}</div>
         <div class="field-row">${text('wa_template_payment', 'Payment template name')}${text('wa_template_language', 'Template language code')}</div>

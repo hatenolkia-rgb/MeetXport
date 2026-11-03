@@ -191,6 +191,7 @@ create table if not exists crm_settings (
 
 insert into crm_settings(key, value) values
   ('community_link', ''),
+  ('notify_emails', 'admin@meetxport.com, mantririddhi05@gmail.com'),
   ('auto_welcome_whatsapp', 'true'),
   ('auto_welcome_email', 'true'),
   ('wa_template_welcome', 'meetxport_welcome'),

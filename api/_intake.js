@@ -3,8 +3,8 @@
 // (Meta lead id, Instagram/Facebook user, phone or email) and fills in what's new,
 // otherwise creates a lead with the next MX- serial number.
 
-const { normalizePhone, getSettings, logActivity } = require('./_shared')
-const { autoWelcome } = require('./_messaging')
+const { normalizePhone, getSettings, logActivity, claimOnce } = require('./_shared')
+const { autoWelcome, notifyTeam } = require('./_messaging')
 
 // Service keys — the same ones the website contact form and the CRM use.
 const SERVICES = {
@@ -137,9 +137,15 @@ async function intakeLead(db, fields, { welcome = true, note = null } = {}) {
     await logActivity(db, lead.id, { kind: 'system', body: note || `New lead from ${f.source || 'manual entry'}` })
   }
 
-  if (welcome) {
-    try { await autoWelcome(db, lead, await getSettings(db)) }
-    catch (err) { console.error('Auto welcome failed', lead.id, err.message) }
+  // Website enquiries already reach the team by email from the site itself (FormSubmit).
+  // Chat leads alert once the number is in or the chat ends — the same moment as the welcome.
+  const alert = welcome && !/^website/.test(lead.source || '')
+  if (welcome || alert) {
+    try {
+      const settings = await getSettings(db)
+      if (alert && await claimOnce(db, `notify:${lead.id}`)) await notifyTeam(lead, settings, SERVICES)
+      if (welcome) await autoWelcome(db, lead, settings)
+    } catch (err) { console.error('Welcome / team alert failed', lead.id, err.message) }
   }
   return { lead, created }
 }

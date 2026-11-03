@@ -113,7 +113,7 @@ async function sendEmail({ to, subject, text }) {
     const res = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: { Authorization: `Bearer ${env('RESEND_API_KEY')}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ from: env('EMAIL_FROM'), to: [to], reply_to: env('EMAIL_REPLY_TO') || undefined, subject, text, html }),
+      body: JSON.stringify({ from: env('EMAIL_FROM'), to: Array.isArray(to) ? to : [to], reply_to: env('EMAIL_REPLY_TO') || undefined, subject, text, html }),
     })
     const data = await res.json().catch(() => ({}))
     if (!res.ok) return { ok: false, error: data.message || `HTTP ${res.status}` }
@@ -187,6 +187,27 @@ async function emailToLead(db, lead, settings, kind, { userId = null, subject = 
 }
 
 // New leads from Instagram/Facebook/website: WhatsApp + email welcome, if switched on in Settings.
+// Emails the team about a new lead (Settings → "New lead alerts go to")
+const SOURCE_LABELS = {
+  instagram_form: 'Instagram form', facebook_form: 'Facebook form', instagram_dm: 'Instagram DM', facebook_dm: 'Messenger',
+  instagram_comment: 'Instagram comment', facebook_comment: 'Facebook comment', whatsapp: 'WhatsApp',
+}
+async function notifyTeam(lead, settings, serviceNames = {}) {
+  const to = String(settings.notify_emails || '').split(/[,;\s]+/).filter(e => /@/.test(e))
+  if (!to.length || !emailConfigured()) return { ok: false }
+  const label = SOURCE_LABELS[lead.source] || lead.source || 'CRM'
+  const lines = [
+    ['Lead', lead.lead_code], ['Name', lead.name], ['Phone', lead.phone && '+' + lead.phone], ['Email', lead.email],
+    ['Instagram', lead.social_username && '@' + lead.social_username], ['Business', lead.business_type && lead.business_type.replace(/_/g, ' ')],
+    ['In business', lead.experience && lead.experience.replace(/_/g, ' ')], ['City', lead.city], ['Company', lead.company],
+    ['Services', (lead.services || []).map(s => serviceNames[s] || s).join(', ')], ['Form', lead.meta_form_name], ['Campaign', lead.campaign_name], ['Message', lead.message],
+  ].filter(([, v]) => v).map(([k, v]) => `${k}: ${v}`)
+  return sendEmail({
+    to, subject: `New lead ${lead.lead_code} — ${lead.name || lead.phone || 'from ' + label} (${label})`,
+    text: `${lines.join('\n')}\n\nOpen the CRM: https://meetxport.com/crm.html`,
+  })
+}
+
 async function autoWelcome(db, lead, settings) {
   if (settings.auto_welcome_whatsapp === 'true' && lead.phone && !lead.welcome_whatsapp_at && whatsappConfigured()) {
     await whatsappToLead(db, lead, settings, 'welcome')
@@ -198,5 +219,5 @@ async function autoWelcome(db, lead, settings) {
 
 module.exports = {
   TEMPLATE_DEFINITIONS, whatsappConfigured, emailConfigured, sendWhatsAppText, submitTemplates,
-  whatsappToLead, emailToLead, autoWelcome,
+  whatsappToLead, emailToLead, autoWelcome, notifyTeam,
 }
