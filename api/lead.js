@@ -3,6 +3,7 @@
 
 const { adminDb, readJson, extractEmail, extractPhone } = require('./_shared')
 const { intakeLead } = require('./_intake')
+const { sendLeadEvent } = require('./_capi')
 
 const recent = new Map() // best-effort per-instance rate limit
 function tooMany(ip) {
@@ -44,11 +45,15 @@ module.exports = async function handler(req, res) {
   }
   if (!fields.phone && !fields.email && !fields.name && !fields.message) return res.status(400).json({ error: 'Empty enquiry' })
 
-  try {
-    const { lead } = await intakeLead(adminDb(), fields, { note: fields.source === 'website_chat' ? 'Website chat enquiry' : 'Website contact form enquiry' })
-    return res.status(200).json({ ok: true, ref: lead.lead_code })
-  } catch (err) {
-    console.error('Website lead failed', err.message)
+  // Tell Meta about the enquiry (Conversions API) alongside saving it; neither waits on the other.
+  const [capi, saved] = await Promise.allSettled([
+    sendLeadEvent(req, body, fields),
+    (async () => intakeLead(adminDb(), fields, { note: fields.source === 'website_chat' ? 'Website chat enquiry' : 'Website contact form enquiry' }))(),
+  ])
+  if (capi.status === 'fulfilled' && !capi.value.ok) console.error('Meta Lead event not sent', capi.value.error)
+  if (saved.status === 'rejected') {
+    console.error('Website lead failed', saved.reason && saved.reason.message)
     return res.status(500).json({ error: 'Could not save enquiry' })
   }
+  return res.status(200).json({ ok: true, ref: saved.value.lead.lead_code })
 }

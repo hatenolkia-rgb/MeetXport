@@ -26,6 +26,28 @@ function setRole(role){
 // Contact form submit -> localStorage (placeholder until backend is wired up)
 const leadEmailEndpoint = 'https://formsubmit.co/ajax/admin@meetxport.com';
 
+// Tracking details for the Meta Pixel / Conversions API — sent to /api/lead, not in the email
+function readCookie(name){
+  const hit = document.cookie.split('; ').find(c => c.startsWith(name + '='));
+  return hit ? decodeURIComponent(hit.slice(name.length + 1)) : undefined;
+}
+function trackingFields(){
+  return {
+    event_id: 'lead-' + Date.now() + '-' + Math.random().toString(36).slice(2, 8),
+    fbp: readCookie('_fbp'),
+    fbc: readCookie('_fbc'),
+    page: location.href
+  };
+}
+function trackLead(entry, tracking){
+  if(!window.mxTrackLead) return;
+  const contact = String(entry.contact || '');
+  const email = (contact.match(/\S+@\S+\.\S+/) || [])[0];
+  const phone = (contact.match(/\+?\d[\d\s\-()]{8,}\d/) || [])[0];
+  try{ window.mxTrackLead({ email, phone, source:entry.source === 'chatbot' ? 'website_chat' : 'website_form' }, tracking.event_id); }
+  catch(err){ console.error('Could not track lead', err); }
+}
+
 async function sendLeadByEmail(entry){
   try{
     const response = await fetch(leadEmailEndpoint, {
@@ -47,12 +69,12 @@ async function sendLeadByEmail(entry){
 }
 
 // Files the enquiry as a lead in the Meetxport CRM (api/lead.js)
-async function sendLeadToCrm(entry){
+async function sendLeadToCrm(entry, tracking){
   try{
     const response = await fetch('/api/lead', {
       method:'POST',
       headers:{ 'Content-Type':'application/json' },
-      body:JSON.stringify(entry)
+      body:JSON.stringify({ ...entry, ...tracking })
     });
     return response.ok;
   }catch(error){
@@ -83,8 +105,10 @@ async function handleSubmit(e){
     submittedAt: new Date().toISOString()
   };
   saveLeadLocally(entry);
-  const [emailed, filed] = await Promise.all([sendLeadByEmail(entry), sendLeadToCrm(entry)]);
+  const tracking = trackingFields();
+  const [emailed, filed] = await Promise.all([sendLeadByEmail(entry), sendLeadToCrm(entry, tracking)]);
   const sent = emailed || filed;
+  if(sent) trackLead(entry, tracking);
 
   const msg = document.getElementById('formMsg');
   if(msg){
@@ -196,8 +220,10 @@ function initMeetxportChat(){
     if(!question){
       const entry = { ...state.answers, submittedAt:new Date().toISOString(), source:'chatbot' };
       saveLeadLocally(entry);
-      const [emailed, filed] = await Promise.all([sendLeadByEmail(entry), sendLeadToCrm(entry)]);
+      const tracking = trackingFields();
+      const [emailed, filed] = await Promise.all([sendLeadByEmail(entry), sendLeadToCrm(entry, tracking)]);
       const sent = emailed || filed;
+      if(sent) trackLead(entry, tracking);
       addMessage(sent
         ? 'Thank you. Our team will connect with you shortly.'
         : 'Thank you. Your details are saved. Please email admin@meetxport.com if you need an immediate reply.', 'bot');
