@@ -279,7 +279,9 @@ nav.wrap{ display:flex; align-items:center; justify-content:space-between; paddi
 .event-radar-head .btn-outline:hover{ border-color:var(--white); }
 .event-marquee{ width:100%; overflow:hidden; }
 .event-track{ display:flex; width:max-content; gap:14px; animation:event-scroll 42s linear infinite; }
-.event-pill{ display:flex; flex-direction:column; gap:3px; min-width:205px; padding:17px 19px; border:1px solid var(--line); border-radius:13px; background:var(--white); box-shadow:0 10px 26px -24px rgba(24,11,51,.25); }
+.event-pill{ display:flex; align-items:center; gap:13px; min-width:205px; padding:17px 19px; border:1px solid var(--line); border-radius:13px; background:var(--white); box-shadow:0 10px 26px -24px rgba(24,11,51,.25); }
+.event-pill > div{ display:flex; flex-direction:column; gap:3px; }
+.event-flag{ flex:none; width:34px; height:24px; object-fit:cover; border-radius:5px; box-shadow:0 0 0 1px rgba(24,11,51,.12); }
 .event-pill strong{ font-family:'Fraunces',Georgia,serif; font-size:17px; color:var(--ink); }
 .event-pill span{ font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.04em; text-transform:uppercase; color:var(--muted); }
 .event-marquee:hover .event-track, .event-marquee:focus-within .event-track{ animation-play-state:paused; }
@@ -372,7 +374,7 @@ a.chip:hover{ border-color:var(--purple); transform:translateY(-2px); color:var(
 .pillar-num{ font-family:'IBM Plex Mono', monospace; font-size:13px; color:var(--purple); }
 
 /* CTA band */
-.cta-section{ background:var(--purple); border-radius:32px; margin:0 32px; overflow:hidden; }
+.cta-section{ background:radial-gradient(120% 140% at 100% 0%, rgba(123,47,224,.55) 0%, rgba(123,47,224,0) 55%), var(--ink); border-radius:32px; margin:0 32px; overflow:hidden; }
 @media (max-width:768px){ .cta-section{ margin:0 20px; border-radius:24px; } }
 .cta-grid{ display:grid; grid-template-columns:1fr 1fr; }
 @media (max-width:860px){ .cta-grid{ grid-template-columns:1fr; } }
@@ -381,7 +383,7 @@ a.chip:hover{ border-color:var(--purple); transform:translateY(-2px); color:var(
 .cta-copy .eyebrow{
   --eyebrow-bg: rgba(255,255,255,.14);
   --eyebrow-border: rgba(255,255,255,.28);
-  --eyebrow-color: rgba(255,255,255,.92);
+  --eyebrow-color: var(--gold);
 }
 .cta-copy.cta-light .eyebrow{
   --eyebrow-bg: var(--purple-tint);
