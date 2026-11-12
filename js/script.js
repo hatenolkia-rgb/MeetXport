@@ -61,7 +61,13 @@ async function sendLeadByEmail(entry){
         _template:'table'
       })
     });
-    return response.ok;
+    // FormSubmit answers 200 even when it refuses (e.g. form not activated), so check its body
+    const result = await response.json().catch(() => ({}));
+    if(!response.ok || String(result.success) !== 'true'){
+      console.error('Lead email not sent', result.message || response.status);
+      return false;
+    }
+    return true;
   }catch(error){
     console.error('Could not send lead by email', error);
     return false;
