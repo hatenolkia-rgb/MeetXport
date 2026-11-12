@@ -24,7 +24,7 @@ function setRole(role){
 }
 
 // Contact form submit -> localStorage (placeholder until backend is wired up)
-const leadEmailEndpoint = 'https://formsubmit.co/ajax/admin@meetxport.com';
+const leadEmailEndpoint = 'https://formsubmit.co/ajax/socialmeetxport@gmail.com';
 
 // Tracking details for the Meta Pixel / Conversions API — sent to /api/lead, not in the email
 function readCookie(name){
