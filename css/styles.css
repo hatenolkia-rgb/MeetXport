@@ -679,3 +679,19 @@ footer{ padding:64px 0 30px; }
 .service-links li a{ color:var(--ink-2); font-weight:500; }
 .service-links li a::before{ content:'→ '; color:var(--purple-2); }
 .service-links li a:hover{ color:var(--purple); }
+
+/* ── Consultation gallery (homepage) ───────────────────────────── */
+.consult-section{ padding:20px 0 84px; }
+.consult-grid{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+.consult-tile{ margin:0; border-radius:18px; overflow:hidden; background:#1f1f22; border:1px solid var(--line); box-shadow:0 14px 34px rgba(24,11,51,.12); }
+.consult-tile img{ display:block; width:100%; height:auto; aspect-ratio:1000 / 529; object-fit:contain; background:#131317; transition:transform .5s ease; }
+.consult-tile:hover img{ transform:scale(1.03); }
+.consult-tile figcaption{ position:relative; z-index:1; display:flex; align-items:center; gap:10px; padding:14px 18px; background:var(--white); color:var(--ink); font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:15px; }
+.consult-dot{ width:8px; height:8px; border-radius:50%; background:#E5484D; box-shadow:0 0 0 4px rgba(229,72,77,.18); flex:none; }
+.consult-section .services-cta{ margin-top:30px; }
+@media (max-width:700px){
+  .consult-section{ padding:10px 0 60px; }
+  .consult-grid{ grid-template-columns:1fr; gap:14px; }
+  .consult-tile figcaption{ font-size:14px; padding:12px 14px; }
+}
+@media (prefers-reduced-motion: reduce){ .consult-tile img{ transition:none; } }
